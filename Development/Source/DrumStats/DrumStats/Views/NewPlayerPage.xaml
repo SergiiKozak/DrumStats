@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrumStats.Views.NewPlayerPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="10">
+            <Label Margin="10" Text="Provide player details" FontSize="Medium"/>
+            <Entry Placeholder="Name" Text="{Binding Player.Name, Mode=TwoWay}}"/>
+            <Entry Placeholder="Surname" Text="{Binding Player.Surname, Mode=TwoWay}}"/>
+
+            <StackLayout Orientation="Horizontal">
+                <Button HorizontalOptions="FillAndExpand" Text="Save" Clicked="OnSaveButton_Clicked"/>
+                <Button HorizontalOptions="FillAndExpand" Text="Cancel" Clicked="OnCancelButton_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

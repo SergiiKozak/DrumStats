@@ -9,11 +9,20 @@ namespace DrumStats.Models
     public class Player : ObservableObject
     {
         string id = string.Empty;
-        [JsonProperty(PropertyName = "_id")]
+        [JsonIgnore]
         public string Id
         {
             get { return id; }
             set { SetProperty(ref id, value); }
+        }
+
+        [JsonProperty(PropertyName = "_id")]
+        private string DeserializedId
+        {
+            set
+            {
+                Id = value;
+            }
         }
 
         string name = string.Empty;
@@ -32,6 +41,7 @@ namespace DrumStats.Models
             set { SetProperty(ref surname, value); }
         }
 
+        [JsonIgnore]
         public string ShortDisplayName
         {
             get
@@ -40,6 +50,7 @@ namespace DrumStats.Models
             }
         }
 
+        [JsonIgnore]
         public string DisplayName
         {
             get

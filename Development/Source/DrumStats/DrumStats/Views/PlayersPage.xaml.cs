@@ -18,6 +18,7 @@ namespace DrumStats.Views
 		{
 			InitializeComponent ();
             BindingContext = viewModel = new PlayersViewModel();
+            SetUpToolbar();
         }
 
         protected override void OnAppearing()
@@ -28,9 +29,29 @@ namespace DrumStats.Views
                 viewModel.LoadPlayersCommand.Execute(null);
         }
 
-        async void OnAddPlayer_Clicked()
+        private void SetUpToolbar()
         {
+            var addPlayerItem = new ToolbarItem()
+            {
+                Text = "Add Player",
+                Order = ToolbarItemOrder.Primary,
+                Command = new Command(async () => await OnAddPlayer_Clicked())
+            };
 
+            switch(Device.RuntimePlatform)
+            {
+                case Device.Windows:
+                    addPlayerItem.Icon = "additem-64.png";
+                    break;
+            }
+
+            ToolbarItems.Add(addPlayerItem);
+
+        }
+
+        async Task OnAddPlayer_Clicked()
+        {
+            await Navigation.PushAsync(new NewPlayerPage());
         }
     }
 }

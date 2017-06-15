@@ -33,6 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\MockPlayerDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PlayerDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewGameViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewPlayerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayersViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -55,6 +56,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\NewGamePage.xaml.cs">
       <DependentUpon>NewGamePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NewPlayerPage.xaml.cs">
+      <DependentUpon>NewPlayerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PlayersPage.xaml.cs">
@@ -83,6 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PlayersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewPlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

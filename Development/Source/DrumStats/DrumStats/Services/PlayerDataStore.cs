@@ -7,14 +7,27 @@ using DrumStats.Models;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 using System.IO;
+using System.Text;
+using System.Net.Http.Headers;
 
 [assembly: Dependency(typeof(DrumStats.Services.PlayerDataStore))]
 namespace DrumStats.Services
 {
     public class PlayerDataStore : IDataStore<Player>
     {
+        private const string serverUri = "http://foosball-results.herokuapp.com/api/players";
+
+        private HttpClient client;
+        private JsonSerializer serializer;
+
         bool isInitialized;
         List<Player> players;
+
+        public PlayerDataStore()
+        {
+            client = new HttpClient();
+            serializer = new JsonSerializer();
+        }
 
         public async Task<bool> AddItemAsync(Player item)
         {
@@ -22,7 +35,21 @@ namespace DrumStats.Services
 
             players.Add(item);
 
-            return await Task.FromResult(true);
+            using (var writer = new StringWriter())
+            using (var jsonWriter = new JsonTextWriter(writer))
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    serializer.Serialize(jsonWriter, item);
+                    var content = new StringContent(writer.ToString(), Encoding.UTF8, "application/json");
+
+                    var response = httpClient.PostAsync(serverUri, content).Result;
+
+                    string resultContent = await response.Content.ReadAsStringAsync();
+
+                    return response.IsSuccessStatusCode;
+                }
+            }
         }
 
         public async Task<bool> UpdateItemAsync(Player item)
@@ -77,19 +104,18 @@ namespace DrumStats.Services
                 return;
 
             players = new List<Player>();
-
-            var client = new HttpClient();
-            var playerStream = await client.GetStreamAsync("http://foosball-results.herokuapp.com/api/players");
-
-            var serializer = new JsonSerializer();
-
-            using (var reader = new StreamReader(playerStream))
-            using(var jsonReader = new JsonTextReader(reader))
+            using (var httpClient = new HttpClient())
             {
-                var playersResult = (IEnumerable<Player>)serializer.Deserialize(jsonReader, typeof(IEnumerable<Player>));
-                foreach (Player player in playersResult)
+                var playerStream = await httpClient.GetStreamAsync(serverUri);
+
+                using (var reader = new StreamReader(playerStream))
+                using (var jsonReader = new JsonTextReader(reader))
                 {
-                    players.Add(player);
+                    var playersResult = (IEnumerable<Player>)serializer.Deserialize(jsonReader, typeof(IEnumerable<Player>));
+                    foreach (Player player in playersResult.Where(p => !p.Name.Contains("John")))
+                    {
+                        players.Add(player);
+                    }
                 }
             }
 

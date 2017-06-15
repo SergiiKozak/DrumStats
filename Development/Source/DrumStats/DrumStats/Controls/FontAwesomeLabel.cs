@@ -9,7 +9,18 @@ namespace DrumStats.Controls
     {
         public FontAwesomeLabel()
         {
-            FontFamily = Device.OnPlatform(null, "FontAwesome", "/Assets/Fonts/FontAwesome.ttf#FontAwesome");
+            switch(Device.RuntimePlatform)
+            {
+                case Device.Windows:
+                    FontFamily = "/Assets/Fonts/FontAwesome.ttf#FontAwesome";
+                    break;
+                case Device.Android:
+                    FontFamily = "FontAwesome";
+                    break;
+                default:
+                    FontFamily = null;
+                    break;
+            }
         }
     }
 
