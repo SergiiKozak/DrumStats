@@ -43,7 +43,7 @@ namespace DrumStats.ViewModels
             PlayersList2.Clear();
             for (int i = 0; i < Players.Count; i++)
             {
-                if (i < Math.Ceiling((decimal)(Players.Count / 2)))
+                if (i < Math.Ceiling((decimal)Players.Count / 2))
                     PlayersList1.Add(Players[i]);
                 else
                     PlayersList2.Add(Players[i]);
