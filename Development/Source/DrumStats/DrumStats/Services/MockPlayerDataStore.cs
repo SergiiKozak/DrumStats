@@ -68,7 +68,7 @@ namespace DrumStats.Services
             return Task.FromResult(true);
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(bool forceRefresh = false)
         {
             if (isInitialized)
                 return;

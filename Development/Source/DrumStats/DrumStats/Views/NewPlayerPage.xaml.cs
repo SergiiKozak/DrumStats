@@ -21,17 +21,15 @@ namespace DrumStats.Views
             BindingContext = viewModel = new NewPlayerViewModel();
 		}
 
-        public async Task OnSaveButton_Clicked()
+        async void OnSaveButton_Clicked(object sender, EventArgs e)
         {
-            var res = await viewModel.SavePlayer();
-
-            if (res)
-                await Navigation.PopAsync();
+            MessagingCenter.Send(this, "AddPlayer", viewModel.Player);
+            await Navigation.PopToRootAsync();
         }
 
-        public async Task OnCancelButton_Clicked()
+        async void OnCancelButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            await Navigation.PopToRootAsync();
         }
     }
 }

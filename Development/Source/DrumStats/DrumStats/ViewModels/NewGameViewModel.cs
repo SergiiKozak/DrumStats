@@ -35,6 +35,13 @@ namespace DrumStats.ViewModels
             PlayersList1 = new ObservableRangeCollection<Player>();
             PlayersList2 = new ObservableRangeCollection<Player>();
             LoadPlayersCommand = new Command(async () => await ExecuteLoadPlayersCommand());
+
+            MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", (obj, item) =>
+            {
+                var player = item as Player;
+                Players.Add(player);
+                RefreshPlayerLists();
+            });
         }
 
         private void RefreshPlayerLists()

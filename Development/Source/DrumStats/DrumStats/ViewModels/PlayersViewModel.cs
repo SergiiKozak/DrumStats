@@ -19,6 +19,14 @@ namespace DrumStats.ViewModels
         {
             Players = new ObservableRangeCollection<Player>();
             LoadPlayersCommand = new Command(async () => await ExecuteLoadPlayersCommand());
+
+            MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", async (obj, item) =>
+            {
+                var player = item as Player;
+                Players.Add(player);
+                await PlayerDataStore.AddItemAsync(player);
+
+            });
         }
 
         async Task ExecuteLoadPlayersCommand()

@@ -17,7 +17,6 @@ namespace DrumStats.Services
     {
         private const string serverUri = "http://foosball-results.herokuapp.com/api/players";
 
-        private HttpClient client;
         private JsonSerializer serializer;
 
         bool isInitialized;
@@ -25,15 +24,12 @@ namespace DrumStats.Services
 
         public PlayerDataStore()
         {
-            client = new HttpClient();
             serializer = new JsonSerializer();
         }
 
         public async Task<bool> AddItemAsync(Player item)
         {
             await InitializeAsync();
-
-            players.Add(item);
 
             using (var writer = new StringWriter())
             using (var jsonWriter = new JsonTextWriter(writer))
@@ -43,9 +39,21 @@ namespace DrumStats.Services
                     serializer.Serialize(jsonWriter, item);
                     var content = new StringContent(writer.ToString(), Encoding.UTF8, "application/json");
 
-                    var response = httpClient.PostAsync(serverUri, content).Result;
+                    var response = await httpClient.PostAsync(serverUri, content);
 
-                    string resultContent = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result = await response.Content.ReadAsStringAsync();
+
+                        using (var reader = new StringReader(result))
+                        using (var jsonReader = new JsonTextReader(reader))
+                        {
+                            var playerResult = (Player)serializer.Deserialize(jsonReader, typeof(Player));
+                            item.Id = playerResult.Id;
+                            players.Add(item);
+                        }
+
+                    }
 
                     return response.IsSuccessStatusCode;
                 }
@@ -98,9 +106,9 @@ namespace DrumStats.Services
             return Task.FromResult(true);
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(bool forceRefresh = false)
         {
-            if (isInitialized)
+            if (isInitialized && !forceRefresh)
                 return;
 
             players = new List<Player>();
@@ -112,7 +120,7 @@ namespace DrumStats.Services
                 using (var jsonReader = new JsonTextReader(reader))
                 {
                     var playersResult = (IEnumerable<Player>)serializer.Deserialize(jsonReader, typeof(IEnumerable<Player>));
-                    foreach (Player player in playersResult.Where(p => !p.Name.Contains("John")))
+                    foreach (Player player in playersResult)
                     {
                         players.Add(player);
                     }

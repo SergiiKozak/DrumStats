@@ -8,7 +8,7 @@
                   ItemsSource="{Binding Players}"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="true"
-                  RefreshCommand="{Binding LoadItemsCommand}"
+                  RefreshCommand="{Binding LoadPlayersCommand}"
                   IsPullToRefreshEnabled="true"
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                   CachingStrategy="RecycleElement">

@@ -13,19 +13,9 @@ namespace DrumStats.ViewModels
     {
         public Player Player { get; set; }
 
-        public Command SavePlayerCommand { get; set; }
-
         public NewPlayerViewModel()
         {
             Player = new Player();
-            SavePlayerCommand = new Command(async () => await SavePlayer());
-        }
-
-        public async Task<bool> SavePlayer()
-        {
-            var res = await PlayerDataStore.AddItemAsync(Player);
-
-            return res;
         }
     }
 }

@@ -34,9 +34,10 @@ namespace DrumStats.Views
             var addPlayerItem = new ToolbarItem()
             {
                 Text = "Add Player",
-                Order = ToolbarItemOrder.Primary,
-                Command = new Command(async () => await OnAddPlayer_Clicked())
+                Order = ToolbarItemOrder.Primary
             };
+
+            addPlayerItem.Clicked += OnAddPlayer_Clicked;
 
             switch(Device.RuntimePlatform)
             {
@@ -49,7 +50,7 @@ namespace DrumStats.Views
 
         }
 
-        async Task OnAddPlayer_Clicked()
+        async void OnAddPlayer_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new NewPlayerPage());
         }

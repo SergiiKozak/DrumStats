@@ -11,7 +11,7 @@ namespace DrumStats.Services
 		Task<T> GetItemAsync(string id);
 		Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
 
-		Task InitializeAsync();
+		Task InitializeAsync(bool forceRefresh = false);
 		Task<bool> PullLatestAsync();
 		Task<bool> SyncAsync();
 	}

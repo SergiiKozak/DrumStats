@@ -34,7 +34,7 @@ namespace DrumStats.Models
         }
 
         string surname = string.Empty;
-        [JsonProperty(PropertyName = "secondName")]
+        [JsonProperty(PropertyName = "lastName")]
         public string Surname
         {
             get { return surname; }
@@ -46,7 +46,7 @@ namespace DrumStats.Models
         {
             get
             {
-                return string.Format("{0} {1}", Name, Surname.Substring(0, 1));
+                return string.Format("{0} {1}", Name == "Volodymyr" ? "Vova" : Name, string.IsNullOrEmpty(Surname) ? string.Empty : Surname.Substring(0, 1));
             }
         }
 
