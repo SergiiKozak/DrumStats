@@ -23,9 +23,10 @@ namespace DrumStats.ViewModels
             MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", async (obj, item) =>
             {
                 var player = item as Player;
-                Players.Add(player);
-                await PlayerDataStore.AddItemAsync(player);
+                var result = await PlayerDataStore.AddItemAsync(player);
 
+                if(result)
+                    Players.Add(player);
             });
         }
 
