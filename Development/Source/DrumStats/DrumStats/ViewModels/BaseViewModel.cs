@@ -8,12 +8,6 @@ namespace DrumStats.ViewModels
 {
 	public class BaseViewModel : ObservableObject
 	{
-		/// <summary>
-		/// Get the azure service instance
-		/// </summary>
-		public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-        public IDataStore<Player> PlayerDataStore => DependencyService.Get<IDataStore<Player>>();
-
         bool isBusy = false;
 		public bool IsBusy
 		{

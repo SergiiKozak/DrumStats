@@ -1,33 +1,27 @@
 ﻿using System;
 using DrumStats.Helpers;
+using Newtonsoft.Json;
 
 namespace DrumStats.Models
 {
     public class BaseDataObject : ObservableObject
     {
-        public BaseDataObject()
+        string id = string.Empty;
+        [JsonIgnore]
+        public string Id
         {
-            Id = Guid.NewGuid().ToString();
+            get { return id; }
+            set { SetProperty(ref id, value); }
         }
 
-        /// <summary>
-        /// Id for item
-        /// </summary>
-        public string Id { get; set; }
+        [JsonProperty(PropertyName = "_id")]
+        protected string DeserializedId
+        {
+            set
+            {
+                Id = value;
+            }
+        }
 
-        /// <summary>
-        /// Azure created at time stamp
-        /// </summary>
-        public DateTimeOffset CreatedAt { get; set; }
-
-        /// <summary>
-        /// Azure UpdateAt timestamp for online/offline sync
-        /// </summary>
-        public DateTimeOffset UpdatedAt { get; set; }
-
-        /// <summary>
-        /// Azure version for online/offline sync
-        /// </summary>
-        public string AzureVersion { get; set; }
     }
 }

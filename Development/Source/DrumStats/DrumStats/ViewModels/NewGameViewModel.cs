@@ -7,12 +7,16 @@ using DrumStats.Models;
 using DrumStats.Views;
 
 using Xamarin.Forms;
+using DrumStats.Services;
 
 namespace DrumStats.ViewModels
 {
     public class NewGameViewModel : BaseViewModel
     {
         private int selectionIndex;
+
+        public IDataStore<Player> PlayerDataStore => DependencyService.Get<IDataStore<Player>>();
+        public IDataStore<Game> GameDataStore => DependencyService.Get<IDataStore<Game>>();
 
         public ObservableRangeCollection<Player> Players { get; set; }
 

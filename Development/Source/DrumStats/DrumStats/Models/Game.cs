@@ -6,25 +6,8 @@ using DrumStats.Helpers;
 
 namespace DrumStats.Models
 {
-    public class Game : ObservableObject
+    public class Game : BaseDataObject
     {
-        string id = string.Empty;
-        [JsonIgnore]
-        public string Id
-        {
-            get { return id; }
-            set { SetProperty(ref id, value); }
-        }
-
-        [JsonProperty(PropertyName = "_id")]
-        private string DeserializedId
-        {
-            set
-            {
-                Id = value;
-            }
-        }
-
         private DateTime startDate;
         [JsonProperty("startDate")]
         public DateTime StartDate

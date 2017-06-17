@@ -6,25 +6,8 @@ using DrumStats.Helpers;
 
 namespace DrumStats.Models
 {
-    public class Player : ObservableObject
+    public class Player : BaseDataObject
     {
-        string id = string.Empty;
-        [JsonIgnore]
-        public string Id
-        {
-            get { return id; }
-            set { SetProperty(ref id, value); }
-        }
-
-        [JsonProperty(PropertyName = "_id")]
-        private string DeserializedId
-        {
-            set
-            {
-                Id = value;
-            }
-        }
-
         string name = string.Empty;
         [JsonProperty(PropertyName = "firstName")]
         public string Name

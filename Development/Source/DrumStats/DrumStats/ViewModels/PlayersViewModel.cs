@@ -6,11 +6,14 @@ using DrumStats.Helpers;
 using DrumStats.Models;
 using DrumStats.Views;
 using Xamarin.Forms;
+using DrumStats.Services;
 
 namespace DrumStats.ViewModels
 {
     class PlayersViewModel : BaseViewModel
     {
+        public IDataStore<Player> PlayerDataStore => DependencyService.Get<IDataStore<Player>>();
+
         public ObservableRangeCollection<Player> Players { get; set; }
 
         public Command LoadPlayersCommand { get; set; }
