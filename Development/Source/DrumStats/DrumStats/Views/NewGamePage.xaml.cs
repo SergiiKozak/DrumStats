@@ -43,18 +43,18 @@ namespace DrumStats.Views
             PlayersListView2.SelectedItem = null;
         }
 
-        async void OnBlueScoreButtonClicked(object sender, EventArgs e)
+        void OnBlueScoreButtonClicked(object sender, EventArgs e)
         {
             var button = (Button)sender;
             var score = int.Parse(button.Text);
-            await viewModel.SelectScore(score, TeamColor.Blue);
+            viewModel.SelectScore(score, TeamColor.Blue);
         }
 
-        async void OnRedScoreButtonClicked(object sender, EventArgs e)
+        void OnRedScoreButtonClicked(object sender, EventArgs e)
         {
             var button = (Button)sender;
             var score = int.Parse(button.Text);
-            await viewModel.SelectScore(score, TeamColor.Red);
+            viewModel.SelectScore(score, TeamColor.Red);
         }
     }
 }
