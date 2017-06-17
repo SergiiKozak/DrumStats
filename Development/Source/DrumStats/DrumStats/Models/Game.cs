@@ -1,12 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
+using Xamarin.Forms;
+using DrumStats.Helpers;
 
 namespace DrumStats.Models
 {
-    public class Game : BaseDataObject
+    public class Game : ObservableObject
     {
+        string id = string.Empty;
+        [JsonIgnore]
+        public string Id
+        {
+            get { return id; }
+            set { SetProperty(ref id, value); }
+        }
+
+        [JsonProperty(PropertyName = "_id")]
+        private string DeserializedId
+        {
+            set
+            {
+                Id = value;
+            }
+        }
+
+        private DateTime startDate;
+        [JsonProperty("startDate")]
+        public DateTime StartDate
+        {
+            get { return startDate; }
+            set { SetProperty(ref startDate, value); }
+        }
+
+        private DateTime endDate;
+        [JsonProperty("endDate")]
+        public DateTime EndDate
+        {
+            get { return endDate; }
+            set { SetProperty(ref endDate, value); }
+        }
+
+        private string source;
+        [JsonProperty("source")]
+        public string Source
+        {
+            get { return source; }
+            set { SetProperty(ref source, value); }
+        }
+
+        private object metadata;
+        [JsonProperty("metadata")]
+        public object MetaData
+        {
+            get { return metadata; }
+            set { SetProperty(ref metadata, value); }
+        }
+
         private Team blueTeam;
+        [JsonProperty("blue")]
         public Team BlueTeam
         {
             get { return blueTeam; }
@@ -14,6 +66,7 @@ namespace DrumStats.Models
         }
 
         private Team redTeam;
+        [JsonProperty("red")]
         public Team RedTeam
         {
             get { return redTeam; }
@@ -24,6 +77,8 @@ namespace DrumStats.Models
         {
             blueTeam = new Team();
             redTeam = new Team();
+
+            Source = string.Format("DrumStats/{0}", Device.RuntimePlatform);
         }
     }
 }

@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using Newtonsoft.Json;
+
 namespace DrumStats.Models
 {
     public class Team : ObservableObject
     {
         private Player attack;
+        [JsonProperty("offense")]
         public Player Attack
         {
             get { return attack; }
@@ -15,6 +18,7 @@ namespace DrumStats.Models
         }
 
         private Player defence;
+        [JsonProperty("defense")]
         public Player Defence
         {
             get { return defence; }
@@ -22,6 +26,7 @@ namespace DrumStats.Models
         }
 
         private int score;
+        [JsonProperty("score")]
         public int Score
         {
             get { return score; }

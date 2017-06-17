@@ -82,7 +82,7 @@ namespace DrumStats.ViewModels
             selectionIndex++;
         }
 
-        public async Task SelectScore(int score, TeamColor teamColor)
+        public void SelectScore(int score, TeamColor teamColor)
         {
             switch (teamColor)
             {
