@@ -30,13 +30,13 @@ namespace DrumStats.Views
                 viewModel.LoadPlayersCommand.Execute(null);
         }
 
-        async void OnPlayerSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnPlayerSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var player = args.SelectedItem as Player;
             if (player == null)
                 return;
 
-            await viewModel.SelectPlayer(player);
+            viewModel.SelectPlayer(player);
 
             // Manually deselect item
             PlayersListView1.SelectedItem = null;
@@ -55,6 +55,16 @@ namespace DrumStats.Views
             var button = (Button)sender;
             var score = int.Parse(button.Text);
             viewModel.SelectScore(score, TeamColor.Red);
+        }
+
+        void OnClearButtonClicked(object sender, EventArgs e)
+        {
+            viewModel.ResetGame();
+        }
+
+        async void OnSaveAndNextButtonClicked(object sender, EventArgs e)
+        {
+            await viewModel.SaveAndNext();
         }
     }
 }

@@ -8,17 +8,25 @@ namespace DrumStats.Models
 {
     public class Game : BaseDataObject
     {
-        private DateTime startDate;
+        [JsonIgnore]
+        public override string Id
+        {
+            get => base.Id;
+            set => base.Id = value;
+        }
+
+
+        private DateTime? startDate;
         [JsonProperty("startDate")]
-        public DateTime StartDate
+        public DateTime? StartDate
         {
             get { return startDate; }
             set { SetProperty(ref startDate, value); }
         }
 
-        private DateTime endDate;
+        private DateTime? endDate;
         [JsonProperty("endDate")]
-        public DateTime EndDate
+        public DateTime? EndDate
         {
             get { return endDate; }
             set { SetProperty(ref endDate, value); }
@@ -62,6 +70,15 @@ namespace DrumStats.Models
             redTeam = new Team();
 
             Source = string.Format("DrumStats/{0}", Device.RuntimePlatform);
+        }
+
+        public void Reset()
+        {
+            StartDate = DateTime.MinValue;
+            EndDate = DateTime.MinValue;
+            metadata = null;
+            blueTeam.Reset();
+            redTeam.Reset();
         }
     }
 }

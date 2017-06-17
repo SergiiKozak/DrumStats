@@ -78,8 +78,8 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal"  Spacing="5" Padding="5" HorizontalOptions="FillAndExpand">
-                <Button Text="Save and Next" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Clear" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save and Next" HorizontalOptions="FillAndExpand" Clicked="OnSaveAndNextButtonClicked"></Button>
+                <Button Text="Clear" HorizontalOptions="FillAndExpand" Clicked="OnClearButtonClicked"></Button>
                 <Button Text="Cancel" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
 

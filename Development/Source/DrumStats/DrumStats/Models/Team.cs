@@ -32,5 +32,12 @@ namespace DrumStats.Models
             get { return score; }
             set { SetProperty(ref score, value); }
         }
+
+        public void Reset()
+        {
+            Attack = null;
+            Defence = null;
+            Score = 0;
+        }
     }
 }

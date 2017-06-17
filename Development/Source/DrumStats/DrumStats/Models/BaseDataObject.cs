@@ -7,15 +7,16 @@ namespace DrumStats.Models
     public class BaseDataObject : ObservableObject
     {
         string id = string.Empty;
-        [JsonIgnore]
-        public string Id
+        //[JsonIgnore]
+        [JsonProperty(PropertyName = "_id")]
+        public virtual string Id
         {
             get { return id; }
             set { SetProperty(ref id, value); }
         }
 
-        [JsonProperty(PropertyName = "_id")]
-        protected string DeserializedId
+        //[JsonProperty(PropertyName = "_id")]
+        protected virtual string DeserializedId
         {
             set
             {

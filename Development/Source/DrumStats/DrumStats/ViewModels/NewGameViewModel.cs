@@ -61,7 +61,7 @@ namespace DrumStats.ViewModels
             }
         }
 
-        public async Task SelectPlayer(Player player)
+        public void SelectPlayer(Player player)
         {
             switch (selectionIndex)
             {
@@ -79,9 +79,11 @@ namespace DrumStats.ViewModels
                     break;
                 default:
                     selectionIndex = 0;
-                    await SelectPlayer(player);
+                    SelectPlayer(player);
                     return;
             }
+
+            Game.StartDate = DateTime.Now;
 
             selectionIndex++;
         }
@@ -98,6 +100,23 @@ namespace DrumStats.ViewModels
                     break;
                 default:
                     break;
+            }
+        }
+
+        public void ResetGame()
+        {
+            Game.Reset();
+        }
+
+        public async Task SaveAndNext()
+        {
+            Game.EndDate = DateTime.Now;
+            var result = await GameDataStore.AddItemAsync(Game);
+
+            if (result)
+            {
+                Game = new Game();
+                Game.Reset();
             }
         }
 
