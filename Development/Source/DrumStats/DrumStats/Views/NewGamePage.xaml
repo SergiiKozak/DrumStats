@@ -83,56 +83,57 @@
                 <Button Text="Cancel" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal"  Spacing="5" Padding="5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <ListView x:Name="PlayersListView1"
+            <ScrollView Padding="0" Margin="0">
+                <StackLayout Orientation="Horizontal"  Spacing="5" Padding="5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <ListView x:Name="PlayersListView1"
                           HorizontalOptions="FillAndExpand"
                           VerticalOptions="FillAndExpand"
                           HasUnevenRows="True"
                           ItemsSource="{Binding PlayersList1}"
                           ItemSelected="OnPlayerSelected">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Padding="10">
-                                    <Label Text="{Binding ShortDisplayName}"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="10">
+                                        <Label Text="{Binding ShortDisplayName}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontSize="16"/>
-                                    <Label Text="{Binding DisplayName}"
+                                        <Label Text="{Binding DisplayName}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-                <ListView x:Name="PlayersListView2" 
+                    <ListView x:Name="PlayersListView2" 
                           HorizontalOptions="FillAndExpand"
                           VerticalOptions="FillAndExpand"
                           HasUnevenRows="True"
                           ItemsSource="{Binding PlayersList2}"
                           ItemSelected="OnPlayerSelected">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Padding="10">
-                                    <Label Text="{Binding ShortDisplayName}"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="10">
+                                        <Label Text="{Binding ShortDisplayName}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontSize="16"/>
-                                    <Label Text="{Binding DisplayName}"
+                                        <Label Text="{Binding DisplayName}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
