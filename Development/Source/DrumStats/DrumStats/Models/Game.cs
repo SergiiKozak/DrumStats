@@ -8,14 +8,6 @@ namespace DrumStats.Models
 {
     public class Game : BaseDataObject
     {
-        [JsonIgnore]
-        public override string Id
-        {
-            get => base.Id;
-            set => base.Id = value;
-        }
-
-
         private DateTime? startDate;
         [JsonProperty("startDate")]
         public DateTime? StartDate
