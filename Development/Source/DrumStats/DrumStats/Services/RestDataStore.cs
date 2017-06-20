@@ -111,7 +111,6 @@ namespace DrumStats.Services
             if (isInitialized && !forceRefresh)
                 return;
 
-            items = new List<TItem>();
             using (var httpClient = new HttpClient())
             {
                 var itemStream = await httpClient.GetStreamAsync(ServerUri);
@@ -120,10 +119,8 @@ namespace DrumStats.Services
                 using (var jsonReader = new JsonTextReader(reader))
                 {
                     var itemsResult = (IEnumerable<TItem>)serializer.Deserialize(jsonReader, typeof(IEnumerable<TItem>));
-                    foreach (TItem item in itemsResult)
-                    {
-                        items.Add(item);
-                    }
+
+                    items = itemsResult.ToList();
                 }
             }
 
