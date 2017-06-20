@@ -26,11 +26,11 @@
                             SelectedItem="{Binding Game.BlueTeam.Defence, Mode=TwoWay}"/>
                     </StackLayout>
 
-                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal" HorizontalOptions="Fill">
-                        <Button Text="0" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="10"></Button>
-                        <Button Text="1" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="10"></Button>
-                        <Button Text="2" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="10"></Button>
-                        <Button Text="3" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="10"></Button>
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Button Text="0" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="1" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="2" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="3" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
                     </StackLayout>
                     <StackLayout Spacing="5" Padding="5" Orientation="Horizontal">
                         <controls:FontAwesomeLabel Text="&#xf1d1;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
@@ -60,10 +60,10 @@
                     </StackLayout>
 
                     <StackLayout Spacing="0" Padding="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                        <Button Text="0" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="10"></Button>
-                        <Button Text="1" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="10"></Button>
-                        <Button Text="2" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="10"></Button>
-                        <Button Text="3" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="10"></Button>
+                        <Button Text="0" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="1" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="2" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="3" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
                     </StackLayout>
 
                     <StackLayout Spacing="5" Padding="5" Orientation="Horizontal">
