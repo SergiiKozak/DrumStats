@@ -64,7 +64,13 @@ namespace DrumStats.Views
 
         async void OnSaveAndNextButtonClicked(object sender, EventArgs e)
         {
-            await viewModel.SaveAndNext();
+            var result = await viewModel.SaveAndNext();
+
+            if (result)
+            {
+                BindingContext = viewModel = new NewGameViewModel();
+                viewModel.LoadPlayersCommand.Execute(null);
+            }
         }
     }
 }

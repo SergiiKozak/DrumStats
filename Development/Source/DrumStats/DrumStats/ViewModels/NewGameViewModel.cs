@@ -108,16 +108,12 @@ namespace DrumStats.ViewModels
             Game.Reset();
         }
 
-        public async Task SaveAndNext()
+        public async Task<bool> SaveAndNext()
         {
             Game.EndDate = DateTime.Now;
             var result = await GameDataStore.AddItemAsync(Game);
 
-            if (result)
-            {
-                Game = new Game();
-                Game.Reset();
-            }
+            return result;
         }
 
         async Task ExecuteLoadPlayersCommand()

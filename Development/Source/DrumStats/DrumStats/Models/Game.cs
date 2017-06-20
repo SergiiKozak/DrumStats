@@ -66,6 +66,7 @@ namespace DrumStats.Models
 
         public void Reset()
         {
+            Id = string.Empty;
             StartDate = DateTime.MinValue;
             EndDate = DateTime.MinValue;
             metadata = null;
