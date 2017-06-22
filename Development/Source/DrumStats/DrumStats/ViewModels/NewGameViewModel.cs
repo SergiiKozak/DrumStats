@@ -25,6 +25,8 @@ namespace DrumStats.ViewModels
 
         public Command LoadPlayersCommand { get; set; }
 
+        public Command PlayerSelectedCommand { get; set; }
+
         public List<int> AvailableScores { get; } = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         public Game Game { get; set; }
@@ -36,29 +38,15 @@ namespace DrumStats.ViewModels
             Game = new Game();
 
             Players = new ObservableRangeCollection<Player>();
-            PlayersList1 = new ObservableRangeCollection<Player>();
-            PlayersList2 = new ObservableRangeCollection<Player>();
             LoadPlayersCommand = new Command(async () => await ExecuteLoadPlayersCommand());
+
+            PlayerSelectedCommand = new Command((p) => SelectPlayer(p as Player));
 
             MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", (obj, item) =>
             {
                 var player = item as Player;
                 Players.Add(player);
-                RefreshPlayerLists();
             });
-        }
-
-        private void RefreshPlayerLists()
-        {
-            PlayersList1.Clear();
-            PlayersList2.Clear();
-            for (int i = 0; i < Players.Count; i++)
-            {
-                if (i < Math.Ceiling((decimal)Players.Count / 2))
-                    PlayersList1.Add(Players[i]);
-                else
-                    PlayersList2.Add(Players[i]);
-            }
         }
 
         public void SelectPlayer(Player player)
@@ -129,7 +117,6 @@ namespace DrumStats.ViewModels
                 Players.Clear();
                 var items = await PlayerDataStore.GetItemsAsync(true);
                 Players.ReplaceRange(items);
-                RefreshPlayerLists();
             }
             catch (Exception ex)
             {

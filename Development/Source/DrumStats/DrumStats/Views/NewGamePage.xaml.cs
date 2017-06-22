@@ -30,19 +30,6 @@ namespace DrumStats.Views
                 viewModel.LoadPlayersCommand.Execute(null);
         }
 
-        void OnPlayerSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var player = args.SelectedItem as Player;
-            if (player == null)
-                return;
-
-            viewModel.SelectPlayer(player);
-
-            // Manually deselect item
-            PlayersListView1.SelectedItem = null;
-            PlayersListView2.SelectedItem = null;
-        }
-
         void OnBlueScoreButtonClicked(object sender, EventArgs e)
         {
             var button = (Button)sender;
