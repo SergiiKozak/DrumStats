@@ -105,6 +105,7 @@ namespace DrumStats.ViewModels
 
         public void ResetGame()
         {
+            selectionIndex = 0;
             Game.Reset();
         }
 
