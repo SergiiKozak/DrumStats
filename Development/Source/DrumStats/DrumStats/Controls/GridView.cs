@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -77,8 +78,18 @@ namespace DrumStats.Controls
             {
                 var tapGestureRecognizer = new TapGestureRecognizer
                 {
-                    Command = ItemTappedCommand,
-                    CommandParameter = item1
+                    Command = new Command(async () =>
+                    {
+                        template.BackgroundColor = Color.FromHex("737373");
+                        await Task.WhenAll(
+                            template.ScaleTo(0.97, 100),
+                            template.RotateXTo(15, 100));
+                        ItemTappedCommand.Execute(item1);
+                        await Task.WhenAll(
+                            template.ScaleTo(1, 100),
+                            template.RotateXTo(0, 100));
+                        template.BackgroundColor = Color.Transparent;
+                    })
                 };
 
                 template.GestureRecognizers.Add(tapGestureRecognizer);
