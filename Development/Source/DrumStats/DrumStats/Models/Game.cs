@@ -56,10 +56,47 @@ namespace DrumStats.Models
             set { SetProperty(ref redTeam, value); }
         }
 
+        [JsonIgnore]
+        public Team Winner
+        {
+            get
+            {
+                if (BlueTeam.Score == RedTeam.Score)
+                    return null;
+
+                return BlueTeam.Score > RedTeam.Score ? BlueTeam : RedTeam;
+            }
+        }
+
+        [JsonIgnore]
+        public Team Loser
+        {
+            get
+            {
+                if (BlueTeam.Score == RedTeam.Score)
+                    return null;
+
+                return BlueTeam.Score > RedTeam.Score ? RedTeam : BlueTeam;
+            }
+        }
+
+        public Team GetTeam(TeamColor teamColor)
+        {
+            switch (teamColor)
+            {
+                case TeamColor.Blue:
+                    return BlueTeam;
+                case TeamColor.Red:
+                    return RedTeam;
+                default:
+                    return null;
+            }
+        }
+
         public Game()
         {
-            blueTeam = new Team();
-            redTeam = new Team();
+            blueTeam = new Team(TeamColor.Blue);
+            redTeam = new Team(TeamColor.Red);
 
             Source = string.Format("DrumStats/{0}", Device.RuntimePlatform);
         }
@@ -72,6 +109,22 @@ namespace DrumStats.Models
             metadata = null;
             blueTeam.Reset();
             redTeam.Reset();
+        }
+
+        public Game Clone()
+        {
+            var clone = new Game()
+            {
+                Id = Id,
+                StartDate = StartDate,
+                EndDate = EndDate,
+                Source = Source,
+                MetaData = MetaData,
+                BlueTeam = BlueTeam.Clone(),
+                RedTeam = RedTeam.Clone()
+            };
+
+            return clone;
         }
     }
 }

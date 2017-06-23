@@ -6,6 +6,7 @@ namespace DrumStats.Models
 {
     public enum TeamColor
     {
+        Undefined,
         Blue,
         Red
     }

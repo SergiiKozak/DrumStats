@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using DrumStats.Helpers;
 using DrumStats.Models;
 using DrumStats.Views;
@@ -14,14 +15,12 @@ namespace DrumStats.ViewModels
     public class NewGameViewModel : BaseViewModel
     {
         private int selectionIndex;
+        private Game previousGame;
 
         public IDataStore<Player> PlayerDataStore => DependencyService.Get<IDataStore<Player>>();
         public IDataStore<Game> GameDataStore => DependencyService.Get<IDataStore<Game>>();
 
         public ObservableRangeCollection<Player> Players { get; set; }
-
-        public ObservableRangeCollection<Player> PlayersList1 { get; private set; }
-        public ObservableRangeCollection<Player> PlayersList2 { get; private set; }
 
         public Command LoadPlayersCommand { get; set; }
 
@@ -30,6 +29,8 @@ namespace DrumStats.ViewModels
         public List<int> AvailableScores { get; } = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         public Game Game { get; set; }
+
+        public int ConsequentWins { get; set; }
 
         public NewGameViewModel()
         {
@@ -47,6 +48,31 @@ namespace DrumStats.ViewModels
                 var player = item as Player;
                 Players.Add(player);
             });
+        }
+
+        public void Initialize(Game previousGame, int consequentWins)
+        {
+            this.previousGame = previousGame;
+            ConsequentWins = consequentWins;
+
+            var loserSuccessor = Game.GetTeam(previousGame.Loser.TeamColor);
+            var winnerSuccessor = Game.GetTeam(previousGame.Winner.TeamColor);
+
+            bool attackersChanging = false;
+
+            if (ConsequentWins >= 3)
+            {
+                attackersChanging = true;
+                ConsequentWins = 0;
+            }
+
+            selectionIndex = loserSuccessor.TeamColor == TeamColor.Blue ^ attackersChanging ? 0 : 2;
+
+            loserSuccessor.Defence = Players.First(p => p.Id == previousGame.Loser.Attack.Id);
+            loserSuccessor.Attack = attackersChanging ? Players.First(p => p.Id == previousGame.Winner.Attack.Id) : null;
+            winnerSuccessor.Defence = Players.First(p => p.Id == previousGame.Winner.Defence.Id);
+            winnerSuccessor.Attack = attackersChanging ? null : Players.First(p => p.Id == previousGame.Winner.Attack.Id);
+
         }
 
         public void SelectPlayer(Player player)
@@ -94,13 +120,27 @@ namespace DrumStats.ViewModels
         public void ResetGame()
         {
             selectionIndex = 0;
+            ConsequentWins = 0;
+            previousGame = null;
             Game.Reset();
         }
 
         public async Task<bool> SaveAndNext()
         {
+            if (Game.Winner == null)
+                return false;
+
             Game.EndDate = DateTime.Now;
+
             var result = await GameDataStore.AddItemAsync(Game);
+
+            if (result && (ConsequentWins == 0 || previousGame != null))
+            {
+                if (ConsequentWins == 0 || (previousGame.Winner.Attack.Id == Game.Winner.Attack.Id && previousGame.Winner.Defence.Id == Game.Winner.Defence.Id))
+                {
+                    ConsequentWins++;
+                }
+            }
 
             return result;
         }

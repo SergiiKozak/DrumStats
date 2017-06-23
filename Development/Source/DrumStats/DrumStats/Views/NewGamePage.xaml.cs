@@ -55,8 +55,14 @@ namespace DrumStats.Views
 
             if (result)
             {
-                BindingContext = viewModel = new NewGameViewModel();
-                viewModel.LoadPlayersCommand.Execute(null);
+                var nextGameViewModel = new NewGameViewModel();
+                await Task.Run(() => nextGameViewModel.LoadPlayersCommand.Execute(null));
+
+                nextGameViewModel.Initialize(viewModel.Game.Clone(), viewModel.ConsequentWins);
+
+                BindingContext = viewModel = nextGameViewModel;
+
+                OnBindingContextChanged();
             }
         }
     }

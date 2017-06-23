@@ -33,11 +33,37 @@ namespace DrumStats.Models
             set { SetProperty(ref score, value); }
         }
 
+        [JsonIgnore]
+        public TeamColor TeamColor { get; set; }
+
+        public Team()
+            : this(TeamColor.Undefined)
+        {
+
+        }
+
+        public Team(TeamColor teamColor)
+        {
+            TeamColor = teamColor;
+        }
+
         public void Reset()
         {
             Attack = null;
             Defence = null;
             Score = 0;
+        }
+
+        public Team Clone()
+        {
+            var clone = new Team(TeamColor)
+            {
+                Attack = Attack.Clone(),
+                Defence = Defence.Clone(),
+                Score = Score
+            };
+
+            return clone;
         }
     }
 }

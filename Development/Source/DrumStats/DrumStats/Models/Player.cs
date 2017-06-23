@@ -41,5 +41,17 @@ namespace DrumStats.Models
                 return string.Format("{0} {1}", Name, Surname);
             }
         }
+
+        public Player Clone()
+        {
+            var clone = new Player()
+            {
+                Id = Id,
+                Name = Name,
+                Surname = Surname
+            };
+
+            return clone;
+        }
     }
 }
