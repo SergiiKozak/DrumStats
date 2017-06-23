@@ -180,6 +180,9 @@
     <PackageReference Include="System.Net.Http">
       <Version>4.3.2</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugins.Settings">
+      <Version>2.5.8</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>2.3.4.247</Version>
     </PackageReference>
