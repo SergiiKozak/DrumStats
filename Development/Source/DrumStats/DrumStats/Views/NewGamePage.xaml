@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:controls="clr-namespace:DrumStats.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrumStats.Views.NewGamePage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout Spacing="5" Padding="1" Margin="0">
+            <StackLayout Spacing="5" Padding="1" Margin="0" Orientation="Horizontal" HorizontalOptions="Fill">
+
+                <StackLayout Spacing="5" Padding="1" Margin ="0" HorizontalOptions="FillAndExpand" BackgroundColor="#1e86e8" >
+                    <StackLayout Spacing="5" Padding="5" Margin="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <controls:FontAwesomeLabel Text="&#xf0e3;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
+                        <Picker x:Name="BlueAttackPicker"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Players}" 
+                            ItemDisplayBinding="{Binding ShortDisplayName}" 
+                            SelectedItem="{Binding Game.BlueTeam.Attack, Mode=TwoWay}" />
+                    </StackLayout>
+                    <StackLayout Spacing="5" Padding="5" Margin="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <controls:FontAwesomeLabel Text="&#xf132;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
+                        <Picker x:Name="BlueDefencePicker"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Players}" 
+                            ItemDisplayBinding="{Binding ShortDisplayName}"
+                            SelectedItem="{Binding Game.BlueTeam.Defence, Mode=TwoWay}"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Button Text="0" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="1" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="2" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="3" HorizontalOptions="FillAndExpand" Clicked="OnBlueScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                    </StackLayout>
+                    <StackLayout Spacing="5" Padding="5" Orientation="Horizontal">
+                        <controls:FontAwesomeLabel Text="&#xf1d1;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
+                        <Label Text="Score: " FontSize="16" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                        <Picker ItemsSource="{Binding AvailableScores}" 
+                                SelectedItem="{Binding Game.BlueTeam.Score, Mode=TwoWay}"
+                                WidthRequest="65"/>
+                    </StackLayout>
+
+                </StackLayout>
+                <StackLayout Spacing="5" Padding="1" Margin ="0" HorizontalOptions="FillAndExpand" BackgroundColor="#eb4f3d" >
+                    <StackLayout Spacing="5" Padding="5" Margin="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <controls:FontAwesomeLabel Text="&#xf0e3;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
+                        <Picker x:Name="RedAttackPicker"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Players}" 
+                            ItemDisplayBinding="{Binding ShortDisplayName}" 
+                            SelectedItem="{Binding Game.RedTeam.Attack, Mode=TwoWay}" />
+                    </StackLayout>
+                    <StackLayout Spacing="5" Padding="5" Margin="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <controls:FontAwesomeLabel Text="&#xf132;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
+                        <Picker x:Name="RedDefencePicker"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Players}" 
+                            ItemDisplayBinding="{Binding ShortDisplayName}"
+                            SelectedItem="{Binding Game.RedTeam.Defence, Mode=TwoWay}"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0" Padding="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Button Text="0" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="1" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="2" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                        <Button Text="3" HorizontalOptions="FillAndExpand" Clicked="OnRedScoreButtonClicked" MinimumWidthRequest="1" WidthRequest="5"></Button>
+                    </StackLayout>
+
+                    <StackLayout Spacing="5" Padding="5" Orientation="Horizontal">
+                        <controls:FontAwesomeLabel Text="&#xf1d0;" FontSize="16" VerticalOptions="Center" WidthRequest="20"/>
+                        <Label Text="Score: " FontSize="16" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                        <Picker ItemsSource="{Binding AvailableScores}" 
+                                SelectedItem="{Binding Game.RedTeam.Score, Mode=TwoWay}"
+                                WidthRequest="65"/>
+                    </StackLayout>
+                </StackLayout>
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"  Spacing="5" Padding="5" HorizontalOptions="FillAndExpand">
+                <Button Text="Save and Next" HorizontalOptions="FillAndExpand" Clicked="OnSaveAndNextButtonClicked"></Button>
+                <Button Text="Clear" HorizontalOptions="FillAndExpand" Clicked="OnClearButtonClicked"></Button>
+                <Button Text="Cancel" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+
+            <ScrollView Padding="0" Margin="0">
+                <controls:GridView ColumnSpacing="10"
+                               ItemTappedCommand="{Binding PlayerSelectedCommand}"
+                               ItemsSource="{Binding Players}"
+                               MaxColumns="2"
+                               Padding="5"
+                               RowSpacing="5"
+                               TileHeight="Auto">
+                    <controls:GridView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding ShortDisplayName}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       FontSize="16"/>
+                                <Label Text="{Binding DisplayName}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </controls:GridView.ItemTemplate>
+                </controls:GridView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
