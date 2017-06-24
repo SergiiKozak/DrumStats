@@ -55,23 +55,26 @@ namespace DrumStats.ViewModels
             this.previousGame = previousGame;
             ConsequentWins = consequentWins;
 
-            var loserSuccessor = Game.GetTeam(previousGame.Loser.TeamColor);
-            var winnerSuccessor = Game.GetTeam(previousGame.Winner.TeamColor);
+            if (Settings.IsPlayerSubstitutionEnabled)
+            { 
+                var loserSuccessor = Game.GetTeam(previousGame.Loser.TeamColor);
+                var winnerSuccessor = Game.GetTeam(previousGame.Winner.TeamColor);
 
-            bool attackersChanging = false;
+                bool attackersChanging = false;
 
-            if (ConsequentWins >= 3)
-            {
-                attackersChanging = true;
-                ConsequentWins = 0;
+                if (ConsequentWins >= 3)
+                {
+                    attackersChanging = true;
+                    ConsequentWins = 0;
+                }
+
+                selectionIndex = loserSuccessor.TeamColor == TeamColor.Blue ^ attackersChanging ? 0 : 2;
+
+                loserSuccessor.Defence = Players.First(p => p.Id == previousGame.Loser.Attack.Id);
+                loserSuccessor.Attack = attackersChanging ? Players.First(p => p.Id == previousGame.Winner.Attack.Id) : null;
+                winnerSuccessor.Defence = Players.First(p => p.Id == previousGame.Winner.Defence.Id);
+                winnerSuccessor.Attack = attackersChanging ? null : Players.First(p => p.Id == previousGame.Winner.Attack.Id);
             }
-
-            selectionIndex = loserSuccessor.TeamColor == TeamColor.Blue ^ attackersChanging ? 0 : 2;
-
-            loserSuccessor.Defence = Players.First(p => p.Id == previousGame.Loser.Attack.Id);
-            loserSuccessor.Attack = attackersChanging ? Players.First(p => p.Id == previousGame.Winner.Attack.Id) : null;
-            winnerSuccessor.Defence = Players.First(p => p.Id == previousGame.Winner.Defence.Id);
-            winnerSuccessor.Attack = attackersChanging ? null : Players.First(p => p.Id == previousGame.Winner.Attack.Id);
 
         }
 
@@ -132,9 +135,10 @@ namespace DrumStats.ViewModels
 
             Game.EndDate = DateTime.Now;
 
-            var result = await GameDataStore.AddItemAsync(Game);
+            var result = await Task.FromResult(true);
+            //var result = await GameDataStore.AddItemAsync(Game);
 
-            if (result && (ConsequentWins == 0 || previousGame != null))
+            if (result && Settings.IsPlayerSubstitutionEnabled && (ConsequentWins == 0 || previousGame != null))
             {
                 if (ConsequentWins == 0 || (previousGame.Winner.Attack.Id == Game.Winner.Attack.Id && previousGame.Winner.Defence.Id == Game.Winner.Defence.Id))
                 {

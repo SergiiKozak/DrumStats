@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DrumStats.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace DrumStats.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SettingsPage : ContentPage
 	{
+        private SettingsViewModel viewModel;
 		public SettingsPage ()
 		{
 			InitializeComponent ();
+            BindingContext = viewModel = new SettingsViewModel();
 		}
 	}
 }

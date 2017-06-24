@@ -187,6 +187,9 @@
       <Version>2.3.4.247</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Renderers\" />
+  </ItemGroup>
   <Import Project="..\DrumStats\DrumStats.projitems" Label="Shared" Condition="Exists('..\DrumStats\DrumStats.projitems')" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

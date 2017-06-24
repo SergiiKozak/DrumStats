@@ -4,11 +4,13 @@
              x:Class="DrumStats.Views.SettingsPage">
     <ContentPage.Content>
         <TableView Intent="Settings">
-            <TableRoot>
-                <TableSection Title="Game">
-                    <SwitchCell Text="Player substitution" On="{Binding IsPlayerSubstitutionEnabled, Mode=TwoWay}" />
-                </TableSection>
-            </TableRoot>
+            <TableView.Root>
+                <TableRoot>
+                    <TableSection Title="Game">
+                        <SwitchCell Text="Player substitution" On="{Binding IsPlayerSubstitutionEnabled, Mode=TwoWay}" />
+                    </TableSection>
+                </TableRoot>
+            </TableView.Root>
         </TableView>
     </ContentPage.Content>
 </ContentPage>

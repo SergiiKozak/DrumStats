@@ -22,7 +22,7 @@ namespace DrumStats.Helpers
         {
             get
             {
-                return AppSettings.GetValueOrDefault<bool>(IsPlayerSubstitutionEnabledKey, IsPlayerSubstitutionEnabled);
+                return AppSettings.GetValueOrDefault<bool>(IsPlayerSubstitutionEnabledKey, IsPlayerSubstitutionEnabledDefault);
             }
             set
             {
