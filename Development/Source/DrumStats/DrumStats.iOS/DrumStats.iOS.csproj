@@ -156,6 +156,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Helpers\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +170,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>

@@ -102,7 +102,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\FontAwesomeLabelRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -142,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="..\DrumStats\DrumStats.projitems" Label="Shared" Condition="Exists('..\DrumStats\DrumStats.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
