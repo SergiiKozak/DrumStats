@@ -135,8 +135,7 @@ namespace DrumStats.ViewModels
 
             Game.EndDate = DateTime.Now;
 
-            var result = await Task.FromResult(true);
-            //var result = await GameDataStore.AddItemAsync(Game);
+            var result = await GameDataStore.AddItemAsync(Game);
 
             if (result && Settings.IsPlayerSubstitutionEnabled && (ConsequentWins == 0 || previousGame != null))
             {
