@@ -4,8 +4,34 @@
              x:Class="DrumStats.Views.StatsPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
+        <ListView x:Name="WinRatesListView"
+                  ItemsSource="{Binding WinRates}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="true"
+                  RefreshCommand="{Binding LoadStatsCommand}"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  CachingStrategy="RecycleElement">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding PlayerId}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       FontSize="16"/>
+                            <Label Text="{Binding AttackWinRate}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13"/>
+                            <Label Text="{Binding DefenceWinRate}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

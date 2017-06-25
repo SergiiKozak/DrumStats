@@ -24,16 +24,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\WinRate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Team.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TeamColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GameDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MockPlayerDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PlayerDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RestDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StatisticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewGameViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewPlayerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayersViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StatsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
