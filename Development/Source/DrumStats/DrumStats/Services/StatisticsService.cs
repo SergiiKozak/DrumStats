@@ -21,7 +21,7 @@ namespace DrumStats.Services
             serializer = new JsonSerializer();
         }
 
-        public async Task<IEnumerable<WinRate>> GetWinRates()
+        public async Task<StatsBundle> GetStatsBundle()
         {
             using (var httpClient = new HttpClient())
             {
@@ -35,14 +35,14 @@ namespace DrumStats.Services
                     using (var reader = new StringReader(result))
                     using (var jsonReader = new JsonTextReader(reader))
                     {
-                        var itemsResult = (IEnumerable<WinRate>)serializer.Deserialize(jsonReader, typeof(IEnumerable<WinRate>));
+                        var itemsResult = (StatsBundle)serializer.Deserialize(jsonReader, typeof(StatsBundle));
 
                         return itemsResult;
                     }
 
                 }
 
-                return new List<WinRate>();
+                return null;
             }
         }
     }

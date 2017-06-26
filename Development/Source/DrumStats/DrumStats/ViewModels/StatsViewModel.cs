@@ -44,10 +44,21 @@ namespace DrumStats.ViewModels
             try
             {
                 var players = await PlayerDataStore.GetItemsAsync();
-                var winRates = await StatsService.GetWinRates();
+                var statsBundle = await StatsService.GetStatsBundle();
 
-                var playerStats = players.Join(winRates, p => p.Id, wr => wr.PlayerId, (p, wr) => new PlayerStats(p, wr));
-                PlayerStats.ReplaceRange(playerStats.OrderByDescending(ps => ps.WinRate.AttackWinRate + ps.WinRate.DefenceWinRate).ToList());
+                var playerStats = from p in players
+                                  join wra in statsBundle.WinRatesAbsolute on p.Id equals wra.PlayerId
+                                  join wrr in statsBundle.WinRatesRelative on p.Id equals wrr.PlayerId
+                                  join pc in statsBundle.PlayCounts on p.Id equals pc.PlayerId
+                                  select new PlayerStats()
+                                  {
+                                      Player = p,
+                                      WinRateAbsolute = wra,
+                                      WinRateRelative = wrr,
+                                      PlayCount = pc
+                                  };
+
+                PlayerStats.ReplaceRange(playerStats.OrderByDescending(ps => ps.WinRateRelative.AttackWinRate + ps.WinRateRelative.DefenceWinRate));
             }
             catch (Exception ex)
             {

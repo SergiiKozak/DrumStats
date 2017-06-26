@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DrumStats.Controls"
              x:Class="DrumStats.Views.StatsPage"
              Title="{Binding Title}">
     <ContentPage.Content>
@@ -20,14 +21,50 @@
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontSize="16"/>
-                            <Label Text="{Binding WinRate.AttackWinRate}"
+                            <Grid ColumnSpacing="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="wr rel" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="1"/>
+                                <Label Text="wr abs" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="2"/>
+                                <Label Text="pl cnt" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="3"/>
+
+                                <controls:FontAwesomeLabel Text="&#xf0e3;" VerticalOptions="Center" Grid.Row="1" Grid.Column="0"/>
+                                <controls:FontAwesomeLabel Text="&#xf132;" VerticalOptions="Center" Grid.Row="2" Grid.Column="0"/>
+                                <Label Text="{Binding WinRateRelative.AttackWinRate}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="13"/>
-                            <Label Text="{Binding WinRate.DefenceWinRate}"
+                                       FontSize="13" Grid.Row="1" Grid.Column="1"/>
+                                <Label Text="{Binding WinRateRelative.DefenceWinRate}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="13"/>
+                                       FontSize="13" Grid.Row="2" Grid.Column="1"/>
+                                <Label Text="{Binding WinRateAbsolute.AttackWinRate}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13" Grid.Row="1" Grid.Column="2"/>
+                                <Label Text="{Binding WinRateAbsolute.DefenceWinRate}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13" Grid.Row="2" Grid.Column="2"/>
+                                <Label Text="{Binding PlayCount.AttackPlayCount}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13" Grid.Row="1" Grid.Column="3"/>
+                                <Label Text="{Binding PlayCount.DefencePlayCount}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13" Grid.Row="2" Grid.Column="3"/>
+                            </Grid>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

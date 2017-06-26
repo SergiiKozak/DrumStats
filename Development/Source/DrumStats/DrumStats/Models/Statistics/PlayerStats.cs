@@ -14,22 +14,30 @@ namespace DrumStats.Models.Statistics
             set { SetProperty(ref player, value); }
         }
 
-        private WinRate winRate;
-        public WinRate WinRate
+        private WinRate winRateAbsolute;
+        public WinRate WinRateAbsolute
         {
-            get { return winRate; }
-            set { SetProperty(ref winRate, value); }
+            get { return winRateAbsolute; }
+            set { SetProperty(ref winRateAbsolute, value); }
+        }
+
+        private WinRate winRateRelative;
+        public WinRate WinRateRelative
+        {
+            get { return winRateRelative; }
+            set { SetProperty(ref winRateRelative, value); }
+        }
+
+        private PlayCount playCount;
+        public PlayCount PlayCount
+        {
+            get { return playCount; }
+            set { SetProperty(ref playCount, value); }
         }
 
         public PlayerStats()
         {
 
-        }
-
-        public PlayerStats(Player player, WinRate winRate)
-        {
-            Player = player;
-            WinRate = winRate;
         }
     }
 }
