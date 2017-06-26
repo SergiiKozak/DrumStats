@@ -20,6 +20,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\FontAwesomeLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\GridView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DeltaColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Pair.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />

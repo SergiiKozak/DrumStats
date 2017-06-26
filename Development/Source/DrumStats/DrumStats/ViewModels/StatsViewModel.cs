@@ -20,12 +20,18 @@ namespace DrumStats.ViewModels
         public StatisticsService StatsService => new StatisticsService();
 
         public ObservableRangeCollection<PlayerStats> PlayerStats { get; set; }
+        public ObservableRangeCollection<PlayerStats> PlayerStatsDeltas { get; set; }
+
+        public ObservableRangeCollection<Pair<PlayerStats, PlayerStats>> PlayerStatsWithDeltas { get; set; }
 
         public Command LoadDataCommand { get; set; }
 
         public StatsViewModel()
         {
             PlayerStats = new ObservableRangeCollection<PlayerStats>();
+            PlayerStatsDeltas = new ObservableRangeCollection<PlayerStats>();
+            PlayerStatsWithDeltas = new ObservableRangeCollection<Pair<PlayerStats, PlayerStats>>();
+
             LoadDataCommand = new Command(async () => await ExecuteLoadDataCommand());
 
             MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", (obj, item) =>
@@ -57,8 +63,54 @@ namespace DrumStats.ViewModels
                                       WinRateRelative = wrr,
                                       PlayCount = pc
                                   };
+                IEnumerable<PlayerStats> playerStatsDeltas;
 
-                PlayerStats.ReplaceRange(playerStats.OrderByDescending(ps => ps.WinRateRelative.AttackWinRate + ps.WinRateRelative.DefenceWinRate));
+                if (PlayerStats.Count > 0)
+                {
+                    playerStatsDeltas = from t0 in PlayerStats
+                                        join t1 in playerStats on t0.Player.Id equals t1.Player.Id
+                                        select new PlayerStats()
+                                        {
+                                            Player = t1.Player,
+                                            WinRateAbsolute = new WinRate()
+                                            {
+                                                AttackWinRate = t1.WinRateAbsolute.AttackWinRate - t0.WinRateAbsolute.AttackWinRate,
+                                                DefenceWinRate = t1.WinRateAbsolute.DefenceWinRate - t0.WinRateAbsolute.DefenceWinRate
+                                            },
+                                            WinRateRelative = new WinRate()
+                                            {
+                                                AttackWinRate = t1.WinRateRelative.AttackWinRate - t0.WinRateRelative.AttackWinRate,
+                                                DefenceWinRate = t1.WinRateRelative.DefenceWinRate - t0.WinRateRelative.DefenceWinRate
+                                            },
+                                            PlayCount = new PlayCount()
+                                            {
+                                                AttackPlayCount = t1.PlayCount.AttackPlayCount - t0.PlayCount.AttackPlayCount,
+                                                DefencePlayCount = t1.PlayCount.AttackPlayCount - t0.PlayCount.AttackPlayCount
+                                            }
+                                        };
+                }
+                else
+                {
+                    playerStatsDeltas = playerStats.Select(ps => new PlayerStats()
+                    {
+                        Player = ps.Player,
+                        WinRateAbsolute = new WinRate(),
+                        WinRateRelative = new WinRate(),
+                        PlayCount = new PlayCount()
+                    });
+                }
+
+                PlayerStats.ReplaceRange(playerStats);
+                PlayerStatsDeltas.ReplaceRange(playerStatsDeltas);
+
+                var playerStatsWithDeltas = from s in PlayerStats
+                                            join d in PlayerStatsDeltas on s.Player.Id equals d.Player.Id
+                                            select new Pair<PlayerStats, PlayerStats>(s, d);
+
+
+                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.AttackWinRate + psd.First.WinRateRelative.DefenceWinRate));
+
+                //PlayerStats.ReplaceRange(playerStats.OrderByDescending(ps => ps.WinRateRelative.AttackWinRate + ps.WinRateRelative.DefenceWinRate));
             }
             catch (Exception ex)
             {
