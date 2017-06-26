@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -18,33 +19,22 @@ namespace DrumStats.ViewModels
 
         public StatisticsService StatsService => new StatisticsService();
 
-        public ObservableRangeCollection<Player> Players { get; set; }
+        public ObservableRangeCollection<PlayerStats> PlayerStats { get; set; }
 
-        public ObservableRangeCollection<WinRate> WinRates { get; set; }
-
-        public Command LoadPlayersCommand { get; set; }
-
-        public Command LoadStatsCommand { get; set; }
+        public Command LoadDataCommand { get; set; }
 
         public StatsViewModel()
         {
-            Players = new ObservableRangeCollection<Player>();
-            LoadPlayersCommand = new Command(async () => await ExecuteLoadPlayersCommand());
+            PlayerStats = new ObservableRangeCollection<PlayerStats>();
+            LoadDataCommand = new Command(async () => await ExecuteLoadDataCommand());
 
-            WinRates = new ObservableRangeCollection<WinRate>();
-            LoadStatsCommand = new Command(async () => await ExecuteLoadStatsCommand());
-
-            MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", async (obj, item) =>
+            MessagingCenter.Subscribe<NewPlayerPage, Player>(this, "AddPlayer", (obj, item) =>
             {
-                var player = item as Player;
-                var result = await PlayerDataStore.AddItemAsync(player);
-
-                if (result)
-                    Players.Add(player);
+                LoadDataCommand.Execute(null);
             });
         }
 
-        async Task ExecuteLoadStatsCommand()
+        async Task ExecuteLoadDataCommand()
         {
             if (IsBusy)
                 return;
@@ -53,9 +43,11 @@ namespace DrumStats.ViewModels
 
             try
             {
-                WinRates.Clear();
-                var items = await StatsService.GetWinRates();
-                WinRates.ReplaceRange(items);
+                var players = await PlayerDataStore.GetItemsAsync();
+                var winRates = await StatsService.GetWinRates();
+
+                var playerStats = players.Join(winRates, p => p.Id, wr => wr.PlayerId, (p, wr) => new PlayerStats(p, wr));
+                PlayerStats.ReplaceRange(playerStats.OrderByDescending(ps => ps.WinRate.AttackWinRate + ps.WinRate.DefenceWinRate).ToList());
             }
             catch (Exception ex)
             {
@@ -63,36 +55,7 @@ namespace DrumStats.ViewModels
                 MessagingCenter.Send(new MessagingCenterAlert
                 {
                     Title = "Error",
-                    Message = "Unable to load stats.",
-                    Cancel = "OK"
-                }, "message");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        async Task ExecuteLoadPlayersCommand()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                Players.Clear();
-                var items = await PlayerDataStore.GetItemsAsync(true);
-                Players.ReplaceRange(items);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                MessagingCenter.Send(new MessagingCenterAlert
-                {
-                    Title = "Error",
-                    Message = "Unable to load players list.",
+                    Message = "Unable to load stats data.",
                     Cancel = "OK"
                 }, "message");
             }

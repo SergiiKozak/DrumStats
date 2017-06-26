@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\PlayerStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\WinRate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Team.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TeamColor.cs" />

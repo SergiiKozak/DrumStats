@@ -5,10 +5,10 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <ListView x:Name="WinRatesListView"
-                  ItemsSource="{Binding WinRates}"
+                  ItemsSource="{Binding PlayerStats}"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="true"
-                  RefreshCommand="{Binding LoadStatsCommand}"
+                  RefreshCommand="{Binding LoadDataCommand}"
                   IsPullToRefreshEnabled="true"
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                   CachingStrategy="RecycleElement">
@@ -16,15 +16,15 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="10">
-                            <Label Text="{Binding PlayerId}"
+                            <Label Text="{Binding Player.DisplayName}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontSize="16"/>
-                            <Label Text="{Binding AttackWinRate}"
+                            <Label Text="{Binding WinRate.AttackWinRate}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>
-                            <Label Text="{Binding DefenceWinRate}"
+                            <Label Text="{Binding WinRate.DefenceWinRate}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>

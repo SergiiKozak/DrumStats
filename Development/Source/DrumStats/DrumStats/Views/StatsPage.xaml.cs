@@ -10,25 +10,21 @@ using Xamarin.Forms.Xaml;
 
 namespace DrumStats.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class StatsPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class StatsPage : ContentPage
+    {
         private StatsViewModel viewModel;
-		public StatsPage ()
-		{
-			InitializeComponent ();
+        public StatsPage()
+        {
+            InitializeComponent();
             BindingContext = viewModel = new StatsViewModel();
-		}
+        }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (viewModel.Players.Count == 0)
-                viewModel.LoadPlayersCommand.Execute(null);
-
-            if (viewModel.WinRates.Count == 0)
-                viewModel.LoadStatsCommand.Execute(null);
+            if (viewModel.PlayerStats.Count == 0)
+                viewModel.LoadDataCommand.Execute(null);
         }
     }
 }

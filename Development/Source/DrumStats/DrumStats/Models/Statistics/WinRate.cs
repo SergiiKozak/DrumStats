@@ -16,17 +16,17 @@ namespace DrumStats.Models.Statistics
             set { SetProperty(ref playerId, value); }
         }
 
-        private string attackWinRate;
+        private decimal attackWinRate;
         [JsonProperty("offenseWinRate")]
-        public string AttackWinRate
+        public decimal AttackWinRate
         {
             get { return attackWinRate; }
             set { SetProperty(ref attackWinRate, value); }
         }
 
-        private string defenceWinRate;
+        private decimal defenceWinRate;
         [JsonProperty("defenseWinRate")]
-        public string DefenceWinRate
+        public decimal DefenceWinRate
         {
             get { return defenceWinRate; }
             set { SetProperty(ref defenceWinRate, value); }
