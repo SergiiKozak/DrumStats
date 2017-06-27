@@ -89,7 +89,7 @@ namespace DrumStats.ViewModels
                                             PlayCount = new PlayCount()
                                             {
                                                 AttackPlayCount = t1.PlayCount.AttackPlayCount - t0.PlayCount.AttackPlayCount,
-                                                DefencePlayCount = t1.PlayCount.AttackPlayCount - t0.PlayCount.AttackPlayCount
+                                                DefencePlayCount = t1.PlayCount.DefencePlayCount - t0.PlayCount.DefencePlayCount
                                             }
                                         };
                 }
@@ -104,17 +104,15 @@ namespace DrumStats.ViewModels
                     });
                 }
 
-                PlayerStats.ReplaceRange(playerStats);
                 PlayerStatsDeltas.ReplaceRange(playerStatsDeltas);
+                PlayerStats.ReplaceRange(playerStats);
 
-                var playerStatsWithDeltas = from s in PlayerStats
+                var playerStatsWithDeltas = (from s in PlayerStats
                                             join d in PlayerStatsDeltas on s.Player.Id equals d.Player.Id
-                                            select new Pair<PlayerStats, PlayerStats>(s, d);
+                                            select new Pair<PlayerStats, PlayerStats>(s, d));
 
 
                 PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.AttackWinRate + psd.First.WinRateRelative.DefenceWinRate));
-
-                //PlayerStats.ReplaceRange(playerStats.OrderByDescending(ps => ps.WinRateRelative.AttackWinRate + ps.WinRateRelative.DefenceWinRate));
             }
             catch (Exception ex)
             {

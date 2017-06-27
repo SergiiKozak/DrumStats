@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DrumStats.Helpers
 {
-    public class Pair<T, U>
+    public class Pair<T, U> :ObservableObject
     {
         public Pair()
         {
@@ -16,7 +16,18 @@ namespace DrumStats.Helpers
             this.Second = second;
         }
 
-        public T First { get; set; }
-        public U Second { get; set; }
+        private T first;
+        public T First
+        {
+            get { return first; }
+            set { SetProperty(ref first, value); }
+        }
+
+        private U second;
+        public U Second
+        {
+            get { return second; }
+            set { SetProperty(ref second, value); }
+        }
     };
 }

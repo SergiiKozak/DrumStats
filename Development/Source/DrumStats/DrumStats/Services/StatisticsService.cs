@@ -25,7 +25,7 @@ namespace DrumStats.Services
         {
             using (var httpClient = new HttpClient())
             {
-                var content = new StringContent("{\"Date\":\"" + DateTime.Now.ToString() + "\"}", Encoding.UTF8, "application/json");
+                var content = new StringContent("d=" + DateTime.Now.Second.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded");
                 var response = await httpClient.PostAsync(string.Format(serverUriTemplate, winRateFunction), content);
 
                 if (response.IsSuccessStatusCode)

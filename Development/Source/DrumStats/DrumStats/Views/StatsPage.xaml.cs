@@ -18,6 +18,7 @@ namespace DrumStats.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new StatsViewModel();
+            SetUpToolbar();
         }
 
         protected override void OnAppearing()
@@ -26,5 +27,32 @@ namespace DrumStats.Views
             if (viewModel.PlayerStats.Count == 0)
                 viewModel.LoadDataCommand.Execute(null);
         }
+
+        private void SetUpToolbar()
+        {
+            var refreshItem = new ToolbarItem()
+            {
+                Text = "Refresh",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            refreshItem.Clicked += OnRefresh_Clicked;
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Windows:
+                    refreshItem.Icon = "synchronize-64.png";
+                    break;
+            }
+
+            ToolbarItems.Add(refreshItem);
+
+        }
+
+        void OnRefresh_Clicked(object sender, EventArgs e)
+        {
+            viewModel.LoadDataCommand.Execute(null);
+        }
+
     }
 }
