@@ -38,6 +38,10 @@ namespace DrumStats.ViewModels
             {
                 LoadDataCommand.Execute(null);
             });
+            MessagingCenter.Subscribe<NewGamePage, Game>(this, "GameSaved", (obj, item) =>
+            {
+                //LoadDataCommand.Execute(null);
+            });
         }
 
         async Task ExecuteLoadDataCommand()
