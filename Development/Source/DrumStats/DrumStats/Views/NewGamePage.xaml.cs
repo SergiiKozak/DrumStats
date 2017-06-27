@@ -60,6 +60,8 @@ namespace DrumStats.Views
 
                 nextGameViewModel.Initialize(viewModel.Game.Clone(), viewModel.ConsequentWins);
 
+                MessagingCenter.Send(this, "GameSaved", viewModel.Game.Clone());
+
                 BindingContext = viewModel = nextGameViewModel;
 
                 OnBindingContextChanged();

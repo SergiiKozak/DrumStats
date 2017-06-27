@@ -1,11 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DrumStats.Controls"
+             xmlns:converters="clr-namespace:DrumStats.Converters"
              x:Class="DrumStats.Views.StatsPage"
              Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DeltaColorConverter x:Key="DeltaConverter"/>
+            <Style x:Key="StatsLabelStyle" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+            </Style>
+            <Style x:Key="DeltaLabelStyle" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+                <Setter Property="FontSize" Value="9"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-        </StackLayout>
+        <ListView x:Name="WinRatesListView"
+                  ItemsSource="{Binding PlayerStatsWithDeltas}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="true"
+                  RefreshCommand="{Binding LoadDataCommand}"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  CachingStrategy="RecycleElement">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding First.Player.DisplayName}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       FontSize="16"/>
+                            <Grid ColumnSpacing="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="wr rel" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="1"/>
+                                <Label Text="wr abs" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="2"/>
+                                <Label Text="pl cnt" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="3"/>
+
+                                <controls:FontAwesomeLabel Text="&#xf0e3;" VerticalOptions="Center" Grid.Row="1" Grid.Column="0"/>
+                                <controls:FontAwesomeLabel Text="&#xf132;" VerticalOptions="Center" Grid.Row="2" Grid.Column="0"/>
+                                <StackLayout Spacing="1" Grid.Row="1" Grid.Column="1">
+                                    <Label Text="{Binding Second.WinRateRelative.AttackWinRate, StringFormat='{0:+0.00;-0.00;0.00}'}"
+                                           TextColor="{Binding Second.WinRateRelative.AttackWinRate, Converter={StaticResource DeltaConverter}}"
+                                           Style="{StaticResource DeltaLabelStyle}"/>
+                                    <Label Text="{Binding First.WinRateRelative.AttackWinRate, StringFormat='{0:N4}'}"
+                                           Style="{StaticResource StatsLabelStyle}"/>
+                                </StackLayout>
+                                <StackLayout Spacing="1" Grid.Row="2" Grid.Column="1">
+                                    <Label Text="{Binding Second.WinRateRelative.DefenceWinRate, StringFormat='{0:+0.00;-0.00;0.00}'}"
+                                           TextColor="{Binding Second.WinRateRelative.DefenceWinRate, Converter={StaticResource DeltaConverter}}"
+                                           Style="{StaticResource DeltaLabelStyle}"/>
+                                    <Label Text="{Binding First.WinRateRelative.DefenceWinRate, StringFormat='{0:N4}'}"
+                                           Style="{StaticResource StatsLabelStyle}"/>
+                                </StackLayout>
+                                <StackLayout Spacing="1" Grid.Row="1" Grid.Column="2">
+                                    <Label Text="{Binding Second.WinRateAbsolute.AttackWinRate, StringFormat='{0:+0.00;-0.00;0.00}'}"
+                                           TextColor="{Binding Second.WinRateAbsolute.AttackWinRate, Converter={StaticResource DeltaConverter}}"
+                                           Style="{StaticResource DeltaLabelStyle}"/>
+                                    <Label Text="{Binding First.WinRateAbsolute.AttackWinRate, StringFormat='{0:N4}'}"
+                                           Style="{StaticResource StatsLabelStyle}"/>
+                                </StackLayout>
+                                <StackLayout Spacing="1" Grid.Row="2" Grid.Column="2">
+                                    <Label Text="{Binding Second.WinRateAbsolute.DefenceWinRate, StringFormat='{0:+0.00;-0.00;0.00}'}"
+                                           TextColor="{Binding Second.WinRateAbsolute.DefenceWinRate, Converter={StaticResource DeltaConverter}}"
+                                           Style="{StaticResource DeltaLabelStyle}"/>
+                                    <Label Text="{Binding First.WinRateAbsolute.DefenceWinRate, StringFormat='{0:N4}'}"
+                                           Style="{StaticResource StatsLabelStyle}"/>
+                                </StackLayout>
+                                <StackLayout Spacing="1" Grid.Row="1" Grid.Column="3">
+                                    <Label Text="{Binding Second.PlayCount.AttackPlayCount, StringFormat='{0:+0;-0;0}'}"
+                                           TextColor="{Binding Second.PlayCount.AttackPlayCount, Converter={StaticResource DeltaConverter}}"
+                                           Style="{StaticResource DeltaLabelStyle}"/>
+                                    <Label Text="{Binding First.PlayCount.AttackPlayCount}"
+                                           Style="{StaticResource StatsLabelStyle}"/>
+                                </StackLayout>
+                                <StackLayout Spacing="1" Grid.Row="2" Grid.Column="3">
+                                    <Label Text="{Binding Second.PlayCount.DefencePlayCount, StringFormat='{0:+0;-0;0}'}"
+                                           TextColor="{Binding Second.PlayCount.DefencePlayCount, Converter={StaticResource DeltaConverter}}"
+                                           Style="{StaticResource DeltaLabelStyle}"/>
+                                    <Label Text="{Binding First.PlayCount.DefencePlayCount}"
+                                           Style="{StaticResource StatsLabelStyle}"/>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

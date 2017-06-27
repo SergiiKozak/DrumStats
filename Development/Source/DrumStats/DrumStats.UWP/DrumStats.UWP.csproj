@@ -134,6 +134,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Fonts\FontAwesome.ttf" />
+    <Content Include="synchronize-64.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -179,6 +180,9 @@
     </PackageReference>
     <PackageReference Include="System.Net.Http">
       <Version>4.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugins.Settings">
       <Version>2.5.8</Version>
