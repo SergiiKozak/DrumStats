@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DrumStats.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,49 @@ using Xamarin.Forms.Xaml;
 
 namespace DrumStats.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class StatsPage : ContentPage
-	{
-		public StatsPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class StatsPage : ContentPage
+    {
+        private StatsViewModel viewModel;
+        public StatsPage()
+        {
+            InitializeComponent();
+            BindingContext = viewModel = new StatsViewModel();
+            SetUpToolbar();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (viewModel.PlayerStats.Count == 0)
+                viewModel.LoadDataCommand.Execute(null);
+        }
+
+        private void SetUpToolbar()
+        {
+            var refreshItem = new ToolbarItem()
+            {
+                Text = "Refresh",
+                Order = ToolbarItemOrder.Primary
+            };
+
+            refreshItem.Clicked += OnRefresh_Clicked;
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Windows:
+                    refreshItem.Icon = "synchronize-64.png";
+                    break;
+            }
+
+            ToolbarItems.Add(refreshItem);
+
+        }
+
+        void OnRefresh_Clicked(object sender, EventArgs e)
+        {
+            viewModel.LoadDataCommand.Execute(null);
+        }
+
+    }
 }

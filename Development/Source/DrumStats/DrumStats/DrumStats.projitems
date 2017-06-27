@@ -20,18 +20,28 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\FontAwesomeLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\GridView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DeltaColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Pair.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\PlayCount.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\PlayerStats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\StatsBundle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Statistics\WinRate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Team.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TeamColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GameDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MockPlayerDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PlayerDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RestDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StatisticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewGameViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewPlayerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayersViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StatsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -53,13 +63,14 @@
       <DependentUpon>PlayersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StatsPage.xaml.cs">
       <DependentUpon>StatsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewGamePage.xaml">
@@ -81,6 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewPlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

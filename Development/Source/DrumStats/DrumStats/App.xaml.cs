@@ -36,6 +36,11 @@ namespace DrumStats
                         Title = "Players",
                         Icon = Device.OnPlatform<string>("tab_about.png",null,null)
                     },
+                    new NavigationPage(new SettingsPage())
+                    {
+                        Title = "Settings",
+                        Icon = Device.OnPlatform<string>("tab_about.png",null,null)
+                    },
                 },
             };
         }
