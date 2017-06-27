@@ -15,7 +15,7 @@
             </Style>
             <Style x:Key="DeltaLabelStyle" TargetType="Label">
                 <Setter Property="LineBreakMode" Value="NoWrap"/>
-                <Setter Property="FontSize" Value="8"/>
+                <Setter Property="FontSize" Value="9"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
             </Style>
         </ResourceDictionary>
