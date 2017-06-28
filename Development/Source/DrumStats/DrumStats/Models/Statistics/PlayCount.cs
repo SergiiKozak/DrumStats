@@ -31,5 +31,13 @@ namespace DrumStats.Models.Statistics
             get { return defencePlayCount; }
             set { SetProperty(ref defencePlayCount, value); }
         }
+
+        private int totalPlayCount;
+        [JsonProperty("totalPlayCount")]
+        public int TotalPlayCount
+        {
+            get { return totalPlayCount; }
+            set { SetProperty(ref totalPlayCount, value); }
+        }
     }
 }

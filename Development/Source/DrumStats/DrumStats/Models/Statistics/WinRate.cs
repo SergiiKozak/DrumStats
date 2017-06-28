@@ -31,5 +31,13 @@ namespace DrumStats.Models.Statistics
             get { return defenceWinRate; }
             set { SetProperty(ref defenceWinRate, value); }
         }
+
+        private decimal totalWinRate;
+        [JsonProperty("totalWinRate")]
+        public decimal TotalWinRate
+        {
+            get { return totalWinRate; }
+            set { SetProperty(ref totalWinRate, value); }
+        }
     }
 }

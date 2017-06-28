@@ -79,17 +79,20 @@ namespace DrumStats.ViewModels
                                             WinRateAbsolute = new WinRate()
                                             {
                                                 AttackWinRate = t1.WinRateAbsolute.AttackWinRate - t0.WinRateAbsolute.AttackWinRate,
-                                                DefenceWinRate = t1.WinRateAbsolute.DefenceWinRate - t0.WinRateAbsolute.DefenceWinRate
+                                                DefenceWinRate = t1.WinRateAbsolute.DefenceWinRate - t0.WinRateAbsolute.DefenceWinRate,
+                                                TotalWinRate = t1.WinRateAbsolute.TotalWinRate - t0.WinRateAbsolute.TotalWinRate
                                             },
                                             WinRateRelative = new WinRate()
                                             {
                                                 AttackWinRate = t1.WinRateRelative.AttackWinRate - t0.WinRateRelative.AttackWinRate,
-                                                DefenceWinRate = t1.WinRateRelative.DefenceWinRate - t0.WinRateRelative.DefenceWinRate
+                                                DefenceWinRate = t1.WinRateRelative.DefenceWinRate - t0.WinRateRelative.DefenceWinRate,
+                                                TotalWinRate = t1.WinRateRelative.TotalWinRate - t0.WinRateRelative.TotalWinRate
                                             },
                                             PlayCount = new PlayCount()
                                             {
                                                 AttackPlayCount = t1.PlayCount.AttackPlayCount - t0.PlayCount.AttackPlayCount,
-                                                DefencePlayCount = t1.PlayCount.DefencePlayCount - t0.PlayCount.DefencePlayCount
+                                                DefencePlayCount = t1.PlayCount.DefencePlayCount - t0.PlayCount.DefencePlayCount,
+                                                TotalPlayCount = t1.PlayCount.TotalPlayCount - t0.PlayCount.TotalPlayCount
                                             }
                                         };
                 }
