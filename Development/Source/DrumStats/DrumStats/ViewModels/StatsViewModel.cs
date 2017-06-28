@@ -111,7 +111,7 @@ namespace DrumStats.ViewModels
                                             select new Pair<PlayerStats, PlayerStats>(s, d));
 
 
-                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.AttackWinRate + psd.First.WinRateRelative.DefenceWinRate));
+                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.TotalWinRate));
             }
             catch (Exception ex)
             {
