@@ -39,9 +39,7 @@ namespace DrumStats.Services
 
                         return itemsResult;
                     }
-
                 }
-
                 return null;
             }
         }

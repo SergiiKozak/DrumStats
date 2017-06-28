@@ -38,10 +38,6 @@ namespace DrumStats.ViewModels
             {
                 LoadDataCommand.Execute(null);
             });
-            MessagingCenter.Subscribe<NewGamePage, Game>(this, "GameSaved", (obj, item) =>
-            {
-                //LoadDataCommand.Execute(null);
-            });
         }
 
         async Task ExecuteLoadDataCommand()
@@ -55,7 +51,7 @@ namespace DrumStats.ViewModels
             {
                 var players = await PlayerDataStore.GetItemsAsync();
                 var statsBundle = await StatsService.GetStatsBundle();
-
+                
                 var playerStats = from p in players
                                   join wra in statsBundle.WinRatesAbsolute on p.Id equals wra.PlayerId
                                   join wrr in statsBundle.WinRatesRelative on p.Id equals wrr.PlayerId
