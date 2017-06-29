@@ -55,9 +55,9 @@
                                 <Label Text="win rate abs" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="2"/>
                                 <Label Text="play count" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="3"/>
 
-                                <controls:FontAwesomeLabel Text="&#xf0e3;" VerticalOptions="Center" Grid.Row="1" Grid.Column="0"/>
-                                <controls:FontAwesomeLabel Text="&#xf132;" VerticalOptions="Center" Grid.Row="2" Grid.Column="0"/>
-                                <controls:FontAwesomeLabel Text="&#xf024;" VerticalOptions="Center" Grid.Row="3" Grid.Column="0"/>
+                                <controls:FontAwesomeLabel Text="&#xf0e3;" VerticalOptions="End" Grid.Row="1" Grid.Column="0"/>
+                                <controls:FontAwesomeLabel Text="&#xf132;" VerticalOptions="End" Grid.Row="2" Grid.Column="0"/>
+                                <controls:FontAwesomeLabel Text="&#xf024;" VerticalOptions="End" Grid.Row="3" Grid.Column="0"/>
                                 <StackLayout Spacing="1" Grid.Row="1" Grid.Column="1">
                                     <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.AttackWinRate, StringFormat='{0:&#xf0d8; 0.00;&#xf0d7; 0.00;0.00}'}"
                                            TextColor="{Binding Second.WinRateRelative.AttackWinRate, Converter={StaticResource DeltaConverter}}"
