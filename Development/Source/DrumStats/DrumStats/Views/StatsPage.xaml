@@ -51,53 +51,53 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="win rate own" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0" Grid.Column="1"/>
-                                <Label Text="win rate abs" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0"  Grid.Column="2"/>
+                                <Label Text="win rate" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0" Grid.Column="1"/>
+                                <Label Text="goal rate" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0"  Grid.Column="2"/>
                                 <Label Text="play count" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0" Grid.Column="3"/>
 
                                 <controls:FontAwesomeLabel Text="&#xf0e3;" VerticalOptions="End" Grid.Row="1" Grid.Column="0"/>
                                 <controls:FontAwesomeLabel Text="&#xf132;" VerticalOptions="End" Grid.Row="2" Grid.Column="0"/>
                                 <controls:FontAwesomeLabel Text="&#xf024;" VerticalOptions="End" Grid.Row="3" Grid.Column="0"/>
                                 <StackLayout Spacing="1" Grid.Row="1" Grid.Column="1">
-                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.AttackWinRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
-                                           TextColor="{Binding Second.WinRateRelative.AttackWinRate, Converter={StaticResource DeltaConverter}}"
+                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.AttackRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
+                                           TextColor="{Binding Second.WinRateRelative.AttackRate, Converter={StaticResource DeltaConverter}}"
                                            Style="{StaticResource DeltaLabelStyle}"/>
-                                    <Label Text="{Binding First.WinRateRelative.AttackWinRate, StringFormat='{0:N4}'}"
+                                    <Label Text="{Binding First.WinRateRelative.AttackRate, StringFormat='{0:N4}'}"
                                            Style="{StaticResource StatsLabelStyle}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="1" Grid.Row="2" Grid.Column="1">
-                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.DefenceWinRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
-                                           TextColor="{Binding Second.WinRateRelative.DefenceWinRate, Converter={StaticResource DeltaConverter}}"
+                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.DefenceRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
+                                           TextColor="{Binding Second.WinRateRelative.DefenceRate, Converter={StaticResource DeltaConverter}}"
                                            Style="{StaticResource DeltaLabelStyle}"/>
-                                    <Label Text="{Binding First.WinRateRelative.DefenceWinRate, StringFormat='{0:N4}'}"
+                                    <Label Text="{Binding First.WinRateRelative.DefenceRate, StringFormat='{0:N4}'}"
                                            Style="{StaticResource StatsLabelStyle}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="1" Grid.Row="3" Grid.Column="1">
-                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.TotalWinRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
-                                           TextColor="{Binding Second.WinRateRelative.TotalWinRate, Converter={StaticResource DeltaConverter}}"
+                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateRelative.TotalRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
+                                           TextColor="{Binding Second.WinRateRelative.TotalRate, Converter={StaticResource DeltaConverter}}"
                                            Style="{StaticResource DeltaLabelStyle}"/>
-                                    <Label Text="{Binding First.WinRateRelative.TotalWinRate, StringFormat='{0:N4}'}"
+                                    <Label Text="{Binding First.WinRateRelative.TotalRate, StringFormat='{0:N4}'}"
                                            Style="{StaticResource StatsLabelStyle}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="1" Grid.Row="1" Grid.Column="2">
-                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateAbsolute.AttackWinRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
-                                           TextColor="{Binding Second.WinRateAbsolute.AttackWinRate, Converter={StaticResource DeltaConverter}}"
+                                    <controls:FontAwesomeLabel Text="{Binding Second.GoalRate.AttackRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
+                                           TextColor="{Binding Second.GoalRate.AttackRate, Converter={StaticResource DeltaConverter}}"
                                            Style="{StaticResource DeltaLabelStyle}"/>
-                                    <Label Text="{Binding First.WinRateAbsolute.AttackWinRate, StringFormat='{0:N4}'}"
+                                    <Label Text="{Binding First.GoalRate.AttackRate, StringFormat='{0:N4}'}"
                                            Style="{StaticResource StatsLabelStyle}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="1" Grid.Row="2" Grid.Column="2">
-                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateAbsolute.DefenceWinRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
-                                           TextColor="{Binding Second.WinRateAbsolute.DefenceWinRate, Converter={StaticResource DeltaConverter}}"
+                                    <controls:FontAwesomeLabel Text="{Binding Second.GoalRate.DefenceRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
+                                           TextColor="{Binding Second.GoalRate.DefenceRate, Converter={StaticResource DeltaConverter}}"
                                            Style="{StaticResource DeltaLabelStyle}"/>
-                                    <Label Text="{Binding First.WinRateAbsolute.DefenceWinRate, StringFormat='{0:N4}'}"
+                                    <Label Text="{Binding First.GoalRate.DefenceRate, StringFormat='{0:N4}'}"
                                            Style="{StaticResource StatsLabelStyle}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="1" Grid.Row="3" Grid.Column="2">
-                                    <controls:FontAwesomeLabel Text="{Binding Second.WinRateAbsolute.TotalWinRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
-                                           TextColor="{Binding Second.WinRateAbsolute.TotalWinRate, Converter={StaticResource DeltaConverter}}"
+                                    <controls:FontAwesomeLabel Text="{Binding Second.GoalRate.TotalRate, StringFormat='{0:&#xf0d8; 0.000;&#xf0d7; 0.000;0.000}'}"
+                                           TextColor="{Binding Second.GoalRate.TotalRate, Converter={StaticResource DeltaConverter}}"
                                            Style="{StaticResource DeltaLabelStyle}"/>
-                                    <Label Text="{Binding First.WinRateAbsolute.TotalWinRate, StringFormat='{0:N4}'}"
+                                    <Label Text="{Binding First.GoalRate.TotalRate, StringFormat='{0:N4}'}"
                                            Style="{StaticResource StatsLabelStyle}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="1" Grid.Row="1" Grid.Column="3">

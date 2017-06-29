@@ -8,10 +8,13 @@ namespace DrumStats.Models.Statistics
     public class StatsBundle
     {
         [JsonProperty("winRateAbsolute")]
-        public IEnumerable<WinRate> WinRatesAbsolute { get; set; }
+        public IEnumerable<Rate> WinRatesAbsolute { get; set; }
 
         [JsonProperty("winRateRelative")]
-        public IEnumerable<WinRate> WinRatesRelative { get; set; }
+        public IEnumerable<Rate> WinRatesRelative { get; set; }
+
+        [JsonProperty("goalRate")]
+        public IEnumerable<Rate> GoalRate { get; set; }
 
         [JsonProperty("playCount")]
         public IEnumerable<PlayCount> PlayCounts { get; set; }
