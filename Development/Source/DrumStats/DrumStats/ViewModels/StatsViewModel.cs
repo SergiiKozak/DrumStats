@@ -38,10 +38,6 @@ namespace DrumStats.ViewModels
             {
                 LoadDataCommand.Execute(null);
             });
-            MessagingCenter.Subscribe<NewGamePage, Game>(this, "GameSaved", (obj, item) =>
-            {
-                //LoadDataCommand.Execute(null);
-            });
         }
 
         async Task ExecuteLoadDataCommand()
@@ -55,7 +51,7 @@ namespace DrumStats.ViewModels
             {
                 var players = await PlayerDataStore.GetItemsAsync();
                 var statsBundle = await StatsService.GetStatsBundle();
-
+                
                 var playerStats = from p in players
                                   join wra in statsBundle.WinRatesAbsolute on p.Id equals wra.PlayerId
                                   join wrr in statsBundle.WinRatesRelative on p.Id equals wrr.PlayerId
@@ -79,17 +75,20 @@ namespace DrumStats.ViewModels
                                             WinRateAbsolute = new WinRate()
                                             {
                                                 AttackWinRate = t1.WinRateAbsolute.AttackWinRate - t0.WinRateAbsolute.AttackWinRate,
-                                                DefenceWinRate = t1.WinRateAbsolute.DefenceWinRate - t0.WinRateAbsolute.DefenceWinRate
+                                                DefenceWinRate = t1.WinRateAbsolute.DefenceWinRate - t0.WinRateAbsolute.DefenceWinRate,
+                                                TotalWinRate = t1.WinRateAbsolute.TotalWinRate - t0.WinRateAbsolute.TotalWinRate
                                             },
                                             WinRateRelative = new WinRate()
                                             {
                                                 AttackWinRate = t1.WinRateRelative.AttackWinRate - t0.WinRateRelative.AttackWinRate,
-                                                DefenceWinRate = t1.WinRateRelative.DefenceWinRate - t0.WinRateRelative.DefenceWinRate
+                                                DefenceWinRate = t1.WinRateRelative.DefenceWinRate - t0.WinRateRelative.DefenceWinRate,
+                                                TotalWinRate = t1.WinRateRelative.TotalWinRate - t0.WinRateRelative.TotalWinRate
                                             },
                                             PlayCount = new PlayCount()
                                             {
                                                 AttackPlayCount = t1.PlayCount.AttackPlayCount - t0.PlayCount.AttackPlayCount,
-                                                DefencePlayCount = t1.PlayCount.DefencePlayCount - t0.PlayCount.DefencePlayCount
+                                                DefencePlayCount = t1.PlayCount.DefencePlayCount - t0.PlayCount.DefencePlayCount,
+                                                TotalPlayCount = t1.PlayCount.TotalPlayCount - t0.PlayCount.TotalPlayCount
                                             }
                                         };
                 }
@@ -112,7 +111,7 @@ namespace DrumStats.ViewModels
                                             select new Pair<PlayerStats, PlayerStats>(s, d));
 
 
-                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.AttackWinRate + psd.First.WinRateRelative.DefenceWinRate));
+                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.TotalWinRate));
             }
             catch (Exception ex)
             {

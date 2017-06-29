@@ -13,11 +13,11 @@ namespace DrumStats.Converters
 
             var delta = value is decimal ? (decimal)value : (int)value;
 
-            if (delta > 0)
-                return Color.Green;
-            else if (delta < 0)
-                return Color.Red;
-            else return Color.Default;
+            if (delta > (decimal)0.001)
+                return Color.FromHex("13BA21");
+            else if (delta < (decimal)-0.001)
+                return Color.FromHex("EB4F3D");
+            else return Color.Transparent;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
