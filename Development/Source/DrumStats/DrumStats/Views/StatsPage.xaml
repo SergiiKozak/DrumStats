@@ -51,9 +51,9 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="win rate own" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="1"/>
-                                <Label Text="win rate abs" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="2"/>
-                                <Label Text="play count" Style="{DynamicResource ListItemTextStyle}" Grid.Row="0" Grid.Column="3"/>
+                                <Label Text="win rate own" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0" Grid.Column="1"/>
+                                <Label Text="win rate abs" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0"  Grid.Column="2"/>
+                                <Label Text="play count" Style="{DynamicResource ListItemTextStyle}" FontSize="15" Grid.Row="0" Grid.Column="3"/>
 
                                 <controls:FontAwesomeLabel Text="&#xf0e3;" VerticalOptions="End" Grid.Row="1" Grid.Column="0"/>
                                 <controls:FontAwesomeLabel Text="&#xf132;" VerticalOptions="End" Grid.Row="2" Grid.Column="0"/>
