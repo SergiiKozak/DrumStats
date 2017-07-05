@@ -21,7 +21,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="25" Padding="15">
+            <StackLayout Spacing="25" Padding="10">
                 <Label Text="{Binding PlayerStats.Player.DisplayName}"
                    Style="{DynamicResource ListItemTextStyle}"
                    FontSize="18"/>
