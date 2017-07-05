@@ -53,15 +53,25 @@ namespace DrumStats.ViewModels
                 var statsBundle = await StatsService.GetStatsBundle();
                 
                 var playerStats = from p in players
-                                  join wra in statsBundle.WinRatesAbsolute on p.Id equals wra.PlayerId
-                                  join wrr in statsBundle.WinRatesRelative on p.Id equals wrr.PlayerId
-                                  join pc in statsBundle.PlayCounts on p.Id equals pc.PlayerId
+                                  from wra in statsBundle.WinRatesAbsolute.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from wrr in statsBundle.WinRatesRelative.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from gr in statsBundle.GoalRate.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from pc in statsBundle.PlayCounts.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from bp in statsBundle.BestPartners.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from wp in statsBundle.WorstPartners.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from vi in statsBundle.Victims.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from ne in statsBundle.Nemeses.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
                                   select new PlayerStats()
                                   {
                                       Player = p,
-                                      WinRateAbsolute = wra,
-                                      WinRateRelative = wrr,
-                                      PlayCount = pc
+                                      WinRateAbsolute = wra ?? new Rate(),
+                                      WinRateRelative = wrr ?? new Rate(),
+                                      GoalRate = gr ?? new Rate(),
+                                      PlayCount = pc ?? new PlayCount(),
+                                      BestPartner = bp ?? new Person(),
+                                      WorstPartner = wp ?? new Person(),
+                                      Victim = vi ?? new Person(),
+                                      Nemesis = ne ?? new Person()
                                   };
                 IEnumerable<PlayerStats> playerStatsDeltas;
 
@@ -72,17 +82,23 @@ namespace DrumStats.ViewModels
                                         select new PlayerStats()
                                         {
                                             Player = t1.Player,
-                                            WinRateAbsolute = new WinRate()
+                                            WinRateAbsolute = new Rate()
                                             {
-                                                AttackWinRate = t1.WinRateAbsolute.AttackWinRate - t0.WinRateAbsolute.AttackWinRate,
-                                                DefenceWinRate = t1.WinRateAbsolute.DefenceWinRate - t0.WinRateAbsolute.DefenceWinRate,
-                                                TotalWinRate = t1.WinRateAbsolute.TotalWinRate - t0.WinRateAbsolute.TotalWinRate
+                                                AttackRate = t1.WinRateAbsolute.AttackRate - t0.WinRateAbsolute.AttackRate,
+                                                DefenceRate = t1.WinRateAbsolute.DefenceRate - t0.WinRateAbsolute.DefenceRate,
+                                                TotalRate = t1.WinRateAbsolute.TotalRate - t0.WinRateAbsolute.TotalRate
                                             },
-                                            WinRateRelative = new WinRate()
+                                            WinRateRelative = new Rate()
                                             {
-                                                AttackWinRate = t1.WinRateRelative.AttackWinRate - t0.WinRateRelative.AttackWinRate,
-                                                DefenceWinRate = t1.WinRateRelative.DefenceWinRate - t0.WinRateRelative.DefenceWinRate,
-                                                TotalWinRate = t1.WinRateRelative.TotalWinRate - t0.WinRateRelative.TotalWinRate
+                                                AttackRate = t1.WinRateRelative.AttackRate - t0.WinRateRelative.AttackRate,
+                                                DefenceRate = t1.WinRateRelative.DefenceRate - t0.WinRateRelative.DefenceRate,
+                                                TotalRate = t1.WinRateRelative.TotalRate - t0.WinRateRelative.TotalRate
+                                            },
+                                            GoalRate = new Rate()
+                                            {
+                                                AttackRate = t1.GoalRate.AttackRate - t0.GoalRate.AttackRate,
+                                                DefenceRate = t1.GoalRate.DefenceRate - t0.GoalRate.DefenceRate,
+                                                TotalRate = t1.GoalRate.TotalRate - t0.GoalRate.TotalRate
                                             },
                                             PlayCount = new PlayCount()
                                             {
@@ -97,8 +113,9 @@ namespace DrumStats.ViewModels
                     playerStatsDeltas = playerStats.Select(ps => new PlayerStats()
                     {
                         Player = ps.Player,
-                        WinRateAbsolute = new WinRate(),
-                        WinRateRelative = new WinRate(),
+                        WinRateAbsolute = new Rate(),
+                        WinRateRelative = new Rate(),
+                        GoalRate = new Rate(),
                         PlayCount = new PlayCount()
                     });
                 }
@@ -111,7 +128,7 @@ namespace DrumStats.ViewModels
                                             select new Pair<PlayerStats, PlayerStats>(s, d));
 
 
-                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.TotalWinRate));
+                PlayerStatsWithDeltas.ReplaceRange(playerStatsWithDeltas.OrderByDescending(psd => psd.First.WinRateRelative.TotalRate));
             }
             catch (Exception ex)
             {

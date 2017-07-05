@@ -1,4 +1,6 @@
-﻿using DrumStats.ViewModels;
+﻿using DrumStats.Helpers;
+using DrumStats.Models.Statistics;
+using DrumStats.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,5 +56,14 @@ namespace DrumStats.Views
             viewModel.LoadDataCommand.Execute(null);
         }
 
+        private void OnWinRatesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                var item = (Pair<PlayerStats, PlayerStats>)e.SelectedItem;
+                Navigation.PushAsync(new StatsDetailPage(item.First));
+                WinRatesListView.SelectedItem = null;
+            }
+        }
     }
 }
