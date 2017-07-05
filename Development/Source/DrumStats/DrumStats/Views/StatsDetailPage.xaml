@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DrumStats.Controls"
+             xmlns:converters="clr-namespace:DrumStats.Converters"
+             x:Class="DrumStats.Views.StatsDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PlayerShortDisplayNameConverter x:Key="PlayerShortDisplayNameConverter"/>
+            <Style x:Key="HeaderStyle" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="StatsLabelStyle" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="25" Padding="10">
+                <Label Text="{Binding PlayerStats.Player.DisplayName}"
+                   Style="{DynamicResource ListItemTextStyle}"
+                   FontSize="18"/>
+                <Grid ColumnSpacing="15" RowSpacing="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Attack" Style="{StaticResource HeaderStyle}}" HorizontalOptions="End" Grid.Row="0" Grid.Column="1"/>
+                    <Label Text="Defence" Style="{StaticResource HeaderStyle}}" HorizontalOptions="End" Grid.Row="0" Grid.Column="2"/>
+                    <Label Text="Total" Style="{StaticResource HeaderStyle}}" HorizontalOptions="End" Grid.Row="0" Grid.Column="3"/>
+
+                    <Label Text="Win rate own" Style="{StaticResource HeaderStyle}}" Grid.Row="1" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.WinRateRelative.AttackRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.WinRateRelative.DefenceRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="1" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.WinRateRelative.TotalRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="1" Grid.Column="3"/>
+
+                    <Label Text="Win rate abs" Style="{StaticResource HeaderStyle}}" Grid.Row="2" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.WinRateAbsolute.AttackRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="2" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.WinRateAbsolute.DefenceRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="2" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.WinRateAbsolute.TotalRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="2" Grid.Column="3"/>
+
+                    <Label Text="Goal rate" Style="{StaticResource HeaderStyle}}" Grid.Row="3" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.GoalRate.AttackRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="3" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.GoalRate.DefenceRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="3" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.GoalRate.TotalRate, StringFormat='{0:N4}'}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="3" Grid.Column="3"/>
+
+                    <Label Text="Play count" Style="{StaticResource HeaderStyle}}" Grid.Row="4" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.PlayCount.AttackPlayCount}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="4" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.PlayCount.DefencePlayCount}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="4" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.PlayCount.TotalPlayCount}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="4" Grid.Column="3"/>
+
+                    <Label Text="Best partner" Style="{StaticResource HeaderStyle}}" Grid.Row="5" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.BestPartner.AttackId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="5" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.BestPartner.DefenceId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="5" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.BestPartner.TotalId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="5" Grid.Column="3"/>
+
+                    <Label Text="Worst partner" Style="{StaticResource HeaderStyle}}" Grid.Row="6" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.WorstPartner.AttackId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="6" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.WorstPartner.DefenceId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="6" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.WorstPartner.TotalId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="6" Grid.Column="3"/>
+
+                    <Label Text="Victim" Style="{StaticResource HeaderStyle}}" Grid.Row="7" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.Victim.AttackId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="7" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.Victim.DefenceId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="7" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.Victim.TotalId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="7" Grid.Column="3"/>
+
+                    <Label Text="Nemesis" Style="{StaticResource HeaderStyle}}" Grid.Row="8" Grid.Column="0"/>
+                    <Label Text="{Binding PlayerStats.Nemesis.AttackId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="8" Grid.Column="1"/>
+                    <Label Text="{Binding PlayerStats.Nemesis.DefenceId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="8" Grid.Column="2"/>
+                    <Label Text="{Binding PlayerStats.Nemesis.TotalId, Converter={StaticResource PlayerShortDisplayNameConverter}}" Style="{StaticResource StatsLabelStyle}}" Grid.Row="8" Grid.Column="3"/>
+
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
