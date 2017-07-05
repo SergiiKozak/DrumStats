@@ -23,6 +23,7 @@
     <ContentPage.Content>
         <ListView x:Name="WinRatesListView"
                   ItemsSource="{Binding PlayerStatsWithDeltas}"
+                  ItemSelected="OnWinRatesListView_ItemSelected"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="true"
                   RefreshCommand="{Binding LoadDataCommand}"

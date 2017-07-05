@@ -53,17 +53,25 @@ namespace DrumStats.ViewModels
                 var statsBundle = await StatsService.GetStatsBundle();
                 
                 var playerStats = from p in players
-                                  join wra in statsBundle.WinRatesAbsolute on p.Id equals wra.PlayerId
-                                  join wrr in statsBundle.WinRatesRelative on p.Id equals wrr.PlayerId
-                                  join gr in statsBundle.GoalRate on p.Id equals gr.PlayerId
-                                  join pc in statsBundle.PlayCounts on p.Id equals pc.PlayerId
+                                  from wra in statsBundle.WinRatesAbsolute.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from wrr in statsBundle.WinRatesRelative.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from gr in statsBundle.GoalRate.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from pc in statsBundle.PlayCounts.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from bp in statsBundle.BestPartners.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from wp in statsBundle.WorstPartners.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from vi in statsBundle.Victims.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
+                                  from ne in statsBundle.Nemeses.Where(x => p.Id == x.PlayerId).DefaultIfEmpty()
                                   select new PlayerStats()
                                   {
                                       Player = p,
-                                      WinRateAbsolute = wra,
-                                      WinRateRelative = wrr,
-                                      GoalRate = gr,
-                                      PlayCount = pc
+                                      WinRateAbsolute = wra ?? new Rate(),
+                                      WinRateRelative = wrr ?? new Rate(),
+                                      GoalRate = gr ?? new Rate(),
+                                      PlayCount = pc ?? new PlayCount(),
+                                      BestPartner = bp ?? new Person(),
+                                      WorstPartner = wp ?? new Person(),
+                                      Victim = vi ?? new Person(),
+                                      Nemesis = ne ?? new Person()
                                   };
                 IEnumerable<PlayerStats> playerStatsDeltas;
 

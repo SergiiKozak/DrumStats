@@ -42,6 +42,34 @@ namespace DrumStats.Models.Statistics
             set { SetProperty(ref playCount, value); }
         }
 
+        private Person bestPartner;
+        public Person BestPartner
+        {
+            get { return bestPartner; }
+            set { SetProperty(ref bestPartner, value); }
+        }
+
+        private Person worstPartner;
+        public Person WorstPartner
+        {
+            get { return worstPartner; }
+            set { SetProperty(ref worstPartner, value); }
+        }
+
+        private Person victim;
+        public Person Victim
+        {
+            get { return victim; }
+            set { SetProperty(ref victim, value); }
+        }
+
+        private Person nemesis;
+        public Person Nemesis
+        {
+            get { return nemesis; }
+            set { SetProperty(ref nemesis, value); }
+        }
+
         public PlayerStats()
         {
 
