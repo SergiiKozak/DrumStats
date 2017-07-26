@@ -30,5 +30,33 @@ namespace DrumStats.Helpers
             }
         }
 
+        private const string CutOffDaysKey = "cut_off_days";
+        private static readonly int CutOffDaysDefault = 0;
+        public static int CutOffDays
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault<int>(CutOffDaysKey, CutOffDaysDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue<int>(CutOffDaysKey, value);
+            }
+        }
+
+        private const string CutOffGamesKey = "cut_off_games";
+        private static readonly int CutOffGamesDefault = 0;
+        public static int CutOffGames
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault<int>(CutOffGamesKey, CutOffGamesDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue<int>(CutOffGamesKey, value);
+            }
+        }
+
     }
 }

@@ -9,6 +9,18 @@
                     <TableSection Title="Game">
                         <SwitchCell Text="Player substitution" On="{Binding IsPlayerSubstitutionEnabled, Mode=TwoWay}" />
                     </TableSection>
+                    <TableSection Title="Statistics">
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                <Label Text="Games cut off mode" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                                <Picker  ItemsSource="{Binding CutOffKeys}" 
+                                         SelectedItem="{Binding SelectedCutOff, Mode=TwoWay}" 
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="End"
+                                         WidthRequest="130"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
                 </TableRoot>
             </TableView.Root>
         </TableView>
