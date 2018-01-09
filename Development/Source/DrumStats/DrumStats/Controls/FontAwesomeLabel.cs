@@ -11,7 +11,7 @@ namespace DrumStats.Controls
         {
             switch(Device.RuntimePlatform)
             {
-                case Device.Windows:
+                case Device.UWP:
                     FontFamily = "/Assets/Fonts/FontAwesome.ttf#FontAwesome";
                     break;
                 case Device.Android:

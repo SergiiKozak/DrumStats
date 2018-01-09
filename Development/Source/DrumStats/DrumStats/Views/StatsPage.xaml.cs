@@ -42,7 +42,7 @@ namespace DrumStats.Views
 
             switch (Device.RuntimePlatform)
             {
-                case Device.Windows:
+                case Device.UWP:
                     refreshItem.Icon = "synchronize-64.png";
                     break;
             }

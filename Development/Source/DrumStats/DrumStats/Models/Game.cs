@@ -98,7 +98,7 @@ namespace DrumStats.Models
             blueTeam = new Team(TeamColor.Blue);
             redTeam = new Team(TeamColor.Red);
 
-            Source = string.Format("DrumStats/{0}", Device.RuntimePlatform);
+            Source = string.Format("DrumStats/{0}", Device.RuntimePlatform == Device.UWP ? "Windows" : Device.RuntimePlatform);
         }
 
         public void Reset()

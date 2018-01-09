@@ -41,7 +41,7 @@ namespace DrumStats.Views
 
             switch(Device.RuntimePlatform)
             {
-                case Device.Windows:
+                case Device.UWP:
                     addPlayerItem.Icon = "additem-64.png";
                     break;
             }
